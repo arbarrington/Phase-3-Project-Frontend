@@ -5,7 +5,7 @@ import ListOptions from './components/ListOptions';
 import Header from './components/Header';
 import DecisionList from './components/DecisionList';
 import NavBar from './components/NavBar';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 
 // this is all just a "mockup" or skeleton of our page
@@ -22,10 +22,10 @@ function App() {
         <Route path="/" element={<Header />}></Route>
         <Route path="/new" element={<CreateNew />}></Route>
         <Route path="/dec-list" element={<DecisionList />}></Route>
-
+        <Route path="/final" element={<FinalDecision />}></Route>
+        <Route path="/list-opt" element={<ListOptions />}></Route>
         <NavBar />
-        <FinalDecision />
-        <ListOptions />
+
       </Routes>
     </BrowserRouter>
     );
