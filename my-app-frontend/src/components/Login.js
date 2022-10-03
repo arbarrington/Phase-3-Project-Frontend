@@ -65,6 +65,9 @@ export default function Login(){
         <label>
           <input type="text" name="username" onChange={handleChange} className="input-text" placeholder="Your Username"/>
         </label>
+        <label>
+          <input type="text" name="groupname" onChange={handleChange} className="input-text" placeholder="Your Group's Name"/>
+        </label>
         <button type="submit" className="submit">
           <img src={check} alt="checkmark"/>
         </button>
