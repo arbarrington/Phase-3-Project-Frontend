@@ -1,11 +1,10 @@
-import './App.css';
-import CreateNew from './components/CreateNew';
-import FinalDecision from './components/FInalDecision';
-import ListOptions from './components/ListOptions';
-import Header from './components/Header';
-import DecisionList from './components/DecisionList';
-import NavBar from './components/NavBar';
-import { BrowserRouter } from 'react-router-dom';
+import CreateNew from './CreateNew';
+import FinalDecision from './FinalDecision';
+import ListOptions from './ListOptions';
+import Header from './Header';
+import DecisionList from './DecisionList';
+import NavBar from './NavBar';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 
 // this is all just a "mockup" or skeleton of our page
@@ -17,16 +16,15 @@ import { BrowserRouter } from 'react-router-dom';
 function App() {
   return (
     <BrowserRouter>
+          <NavBar />
       <Routes>
-        {/* no idea if these routes are correct */}
         <Route path="/" element={<Header />}></Route>
         <Route path="/new" element={<CreateNew />}></Route>
         <Route path="/dec-list" element={<DecisionList />}></Route>
-
-        <NavBar />
-        <FinalDecision />
-        <ListOptions />
+        <Route path="/final" element={<FinalDecision />}></Route>
+        <Route path="/list-opt" element={<ListOptions />}></Route>
       </Routes>
+
     </BrowserRouter>
     );
 }

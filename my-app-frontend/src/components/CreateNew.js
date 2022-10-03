@@ -8,7 +8,7 @@ export default function CreateNew(){
 
     return(
         <div>
-            <form classname="create-new-submit">
+            <form className="create-new-submit">
 
             </form>
         </div>
