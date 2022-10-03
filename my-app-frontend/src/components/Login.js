@@ -1,16 +1,15 @@
 import React, {useState, useEffect} from "react";
 
 
-// old params don't think gonna need cause data basing over stating: onAddUser, onHasLoggedIn, onCurrentUser
-// also because having login at the top
 export default function Login(){
- // state variable for form input data (just username @ this time)
+ 
+    // state variable for form input data
  const [ userData, setUserData ] = useState({
-    username: ''
+    username: '',
+    groupname: ''
   });
 
-  // state for if there's an error logging in
-  const [ loginError, setLoginError] = useState(null)
+
 
   // updating the user's input as they type...
   function handleChange(e) {
@@ -19,9 +18,10 @@ export default function Login(){
       });
   }
 
-  // once submit their name, posts their username//id to our json server
-//   function handleSubmit(e) {
-//     e.preventDefault();
+  // once submit their name, posts their username//id//groupname to the backend
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(userData)
 
 //     const newUser = {
 //       id: userData.username,
@@ -51,30 +51,23 @@ export default function Login(){
 //         setLoginError(true)
 //     });
 //     document.getElementById("login-form").reset();
-//   };
+   };
 
   return (
     <React.Fragment>
     <div>
-      {loginError ? 
-        <h2>Username taken. Submit a different username!</h2>
-      : 
-        <h2>Enter Username and Group Name to Login and Vote!!</h2>
-      }
-      <form onSubmit={console.log('yeeeeuppppp')} id="login-form">
+      <form onSubmit={handleSubmit} id="login-form">
         <label>
-          <input type="text" name="username" onChange={console.log('howdy')} className="input-text" placeholder="Your Username"/>
+          <input type="text" name="username" onChange={handleChange} className="input-text" placeholder="Your Username"/>
         </label>
         <label>
-          <input type="text" name="groupname" onChange={console.log('howd aaginy')} className="input-text" placeholder="Your Group's Name"/>
+          <input type="text" name="groupname" onChange={handleChange} className="input-text" placeholder="Your Group's Name"/>
         </label>
-        <button type="submit" className="submit">
-          {/* <img alt="checkmark"/> */}
+        <button 
+            type="submit" 
+            className="submit">
         </button>
-      </form>{!null ? 
-            null : 
-            <p>Not a valid input. Please try again.</p>
-        }
+      </form>
     </div>
     </React.Fragment>
   );
