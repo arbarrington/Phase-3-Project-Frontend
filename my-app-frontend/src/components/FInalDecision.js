@@ -7,7 +7,7 @@ import React, {useState, useEffect} from "react";
 export default function FinalDecision(){
 
     return(
-<div classname="final-decision">
+<div className="final-decision">
 
 </div>
     )
