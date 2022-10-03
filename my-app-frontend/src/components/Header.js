@@ -1,10 +1,13 @@
 import React, {useState, useEffect} from 'react';
 
-export default function Header(){
+export default function Header({username, groupname}){
 
 
     return(
-        <div>hello</div>
+        <div>
+            <p>{username}</p>
+            <p>{groupname}</p>
+        </div>
     )
     
 }

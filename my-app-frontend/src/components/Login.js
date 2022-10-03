@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 
 
-export default function Login(){
+export default function Login({onCurrentUser}){
  
     // state variable for form input data
  const [ userData, setUserData ] = useState({
@@ -23,14 +23,12 @@ export default function Login(){
     e.preventDefault();
     console.log(userData)
 
-//     const newUser = {
-//       id: userData.username,
-//       username: userData.username,
-//       cities: []
-//     }
+    const newUser = {
+      groupname: userData.groupname,
+      username: userData.username,
+    }
 
-//     // some call back function stuff
-//     //onCurrentUser(newUser)
+    onCurrentUser(newUser)
 
 //     // post new user to the database ~ update the url tho ~ make Sinatra ???
 //     fetch("http://localhost:4000/users", {
