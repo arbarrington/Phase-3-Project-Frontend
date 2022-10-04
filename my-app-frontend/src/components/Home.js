@@ -1,9 +1,14 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import DecisionList from "./DecisionList";
 import Login from "./Login";
-
+import Fetchs from "./Fetchs";
 
 export default function Home({ onCurrentUser, onHasLoggedIn, username, groupname, hasLoggedIn }){
+
+    const [currentUsersDecision, setCurrentUserDecsision] = useState([])
+    const [thisUserID, setThisUserID] = useState()
+
+
 
     return(
         <div>
@@ -12,11 +17,14 @@ export default function Home({ onCurrentUser, onHasLoggedIn, username, groupname
             <DecisionList
                 username={username}
                 groupname={groupname}
+                //map decision list for this sucker
             />
                 :
             <Login
                 onCurrentUser={onCurrentUser}
                 onHasLoggedIn={onHasLoggedIn}
+                onThisUserID={(newUserID)=>setThisUserID(newUserID)}
+                //onUDID={(newDecisions)=>setCurrentUserDecsision([...currentUsersDecision, newDecisions])}
             />}
         </div>
     )

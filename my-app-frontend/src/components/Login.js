@@ -85,6 +85,22 @@ export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onUDI
 
 
     
+            r.filter(row => row.user_id==13).forEach((row) => {
+                setUserDIDs([...userDIDs, row.decision_id])
+                console.log(row.decision_id)
+            })
+            console.log(userDIDs)
+        })
+
+        fetch('http://localhost:9292/decisions')
+        .then((d) => d.json())
+        .then((d) => {
+            console.log(d)
+            console.log(userDIDs)
+        })
+
+
+    }
 
 
 
