@@ -20,18 +20,17 @@ export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID}){
   function handleSubmit(e) {
     e.preventDefault();
 
-    const newUser = {
-      groupname: userData.groupname,
-      username: userData.username,
-    }
+
+    // const newUser = {
+    //   groupname: userData.groupname,
+    //   username: userData.username,
+    // }
 
     const postedUser = {
         username: userData.username,
         num_decisions_made: 0
     }
 
-
-    let userID
     // post ome shit
     fetch("http://localhost:9292/users", {
         method: "POST",
@@ -45,8 +44,10 @@ export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID}){
             onThisUserID(postedUser.id)
         })
 
-        onCurrentUser(newUser)
+        onCurrentUser(userData)
         onHasLoggedIn()
+
+        // fire off extract decisions sequence
 
         document.getElementById("login-form").reset();
    };
