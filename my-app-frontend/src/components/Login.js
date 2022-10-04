@@ -12,6 +12,8 @@ export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onUDI
 
     const [allDecisions, setAllDecisions] = useState([])
 
+    const [matchingDecision, setMatchingDecisions] = useState([])
+
 
 useEffect(() => {
     fetch('http://localhost:9292/decisions')
@@ -63,25 +65,28 @@ useEffect(() => {
     function extractDecisionSequence(userID) {
 
         // fetch the joints info and update state to have the user's decision's ids in an array
-        // CHANGE 14 TO USERID ONCE DONE TESTING
+        // CHANGE NUMBer TO USERID ONCE DONE TESTING
         fetch("http://localhost:9292/joints")
         .then((r) => r.json())
         .then((r) => {
-            console.log('joins table get reqpuest output',r)
             console.log("inside extract funtion",allDecisions)
-            r.filter(row => row.user_id==13).forEach((row) => {
-               console.log("a row with matching id:",row)
+            r.filter(row => row.user_id==6).forEach((row) => {
                allDecisions.forEach((entry) => {
-                console.log("entry.id",entry.id)
-                console.log("row.decision_id",row.decision_id)
                     if (row.decision_id == entry.id) {
-                        console.log("dencions row with matching id:",entry)
-                        console.log('howdy parrdderrrer')
+                        // literallyjustthis(entry.event_type)
+                        setMatchingDecisions((entry) => [...matchingDecision,entry.event_type])
+                        console.log(matchingDecision)
                     }
                 })
             })
         })
      }
+
+    //  function literallyjustthis(newstuff) {
+    //     setMatchingDecisions(newstuff => [...matchingDecision, newstuff])
+    //     console.log(matchingDecision)
+    //  }
+
 
 
   return (
