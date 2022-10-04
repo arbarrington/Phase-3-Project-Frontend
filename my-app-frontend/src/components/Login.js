@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 
 
-export default function Login({onCurrentUser}){
+export default function Login({onCurrentUser, onHasLoggedIn}){
  
     // state variable for form input data
  const [ userData, setUserData ] = useState({
@@ -29,26 +29,9 @@ export default function Login({onCurrentUser}){
     }
 
     onCurrentUser(newUser)
+    onHasLoggedIn()
 
-//     // post new user to the database ~ update the url tho ~ make Sinatra ???
-//     fetch("http://localhost:4000/users", {
-//     method: "POST",
-//     headers: {
-//         "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(newUser),
-//     })
-//     .then((r) => r.json())
-//     .then((newUser) => {
-//         onAddUser(newUser)
-//         setLoginError(false)
-//         onHasLoggedIn()
-//     })
-//     .catch(() => {
-//         console.log('ahhhhh!')
-//         setLoginError(true)
-//     });
-//     document.getElementById("login-form").reset();
+    document.getElementById("login-form").reset();
    };
 
   return (

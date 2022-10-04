@@ -1,10 +1,8 @@
 import CreateNew from './CreateNew';
 import FinalDecision from './FinalDecision';
 import ListOptions from './ListOptions';
-import Header from './Header';
 import DecisionList from './DecisionList';
 import NavBar from './NavBar';
-import Login from './Login';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Home from './Home';
@@ -24,27 +22,24 @@ function App() {
   // most recent user
   const [currentUser, setCurrentUser ] = useState('')
 
+  // state for determing if logged in or not
+  const [hasLoggedIn, setHasLoggedIn] = useState(false)
+
 
 
 
   return (
     <BrowserRouter>
-
+      {hasLoggedIn ? <NavBar /> : <div></div>}
       <Routes>
-        <Route path="/" element={<Home />}></Route>
-
-          <NavBar />
-          <Login
-            onCurrentUser={(newUser)=>setCurrentUser(newUser)}
-          />
-      <Routes>
-        <Route 
-          path="/" 
-          element=
-            {<Header
-              username={currentUser.username}
-              groupname={currentUser.groupname}
-            />}>  
+        <Route path="/" element=
+        {<Home 
+          onCurrentUser={(newUser)=>setCurrentUser(newUser)}
+          onHasLoggedIn={() => setHasLoggedIn(true)}
+          hasLoggedIn={hasLoggedIn}
+          username={currentUser.username}
+          groupname={currentUser.groupname}/>
+        }>
         </Route>
 
         <Route path="/new" element={<CreateNew />}></Route>
@@ -54,7 +49,7 @@ function App() {
       </Routes>
 
     </BrowserRouter>
-    );
+    )
 }
 
 export default App;
