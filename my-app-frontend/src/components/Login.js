@@ -10,6 +10,8 @@ export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onUDI
         groupname: ''
     });
 
+    const [userDIDs, setUserDIDs] = useState([])
+
   // updating the user's input as they type...
   function handleChange(e) {
     setUserData({
@@ -43,35 +45,32 @@ export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onUDI
         onHasLoggedIn()
 
         // execute extract decisions sequence
-        extractDecisionSequence(postedUser.id)
-        
+        extractDecisionSequence(postedUser.id)        
 
         document.getElementById("login-form").reset();
    };
 
-//    let thisUserDecIDs
-   const [userDIDs, setUserDIDs] = useState([])
     function extractDecisionSequence(userID) {
-        // fetches from joins
-        // takes all rows where user ids match
-        fetch("http://localhost:9292/joints")
-        .then((r) => r.json()
-        .then((r) => {
-            let thisUserFetch = r.filter(row => row.user_id==14)
-            console.log(thisUserFetch)
 
-            thisUserFetch.map(row => {
+        // fetch the joints info and update state to have the user's decision's ids in an array
+        // CHANGE 14 TO USERID ONCE DONE TESTING
+        fetch("http://localhost:9292/joints")
+        .then((r) => r.json())
+        .then((r) => {
+            console.log(r)
+            r.filter(row => row.user_id==13).forEach((row) => {
+                setUserDIDs([...userDIDs, row.decision_id])
                 console.log(row.decision_id)
             })
-
-            thisUserFetch.forEach(row => {
-                setUserDIDs(userDIDs => [...userDIDs, row.decision_id])
-            })
             console.log(userDIDs)
+        })
 
-
-
-        }))
+        fetch('http://localhost:9292/decisions')
+        .then((d) => d.json())
+        .then((d) => {
+            console.log(d)
+            console.log(userDIDs)
+        })
 
 
     }
