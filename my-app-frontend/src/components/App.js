@@ -4,6 +4,7 @@ import ListOptions from './ListOptions';
 import DecisionList from './DecisionList';
 import NavBar from './NavBar';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Fetchs from './Fetchs';
 
 import Home from './Home';
 
@@ -31,7 +32,9 @@ function App() {
   return (
     <BrowserRouter>
       {hasLoggedIn ? <NavBar /> : <div></div>}
+      {/* <Fetchs /> */}
       <Routes>
+       
         <Route path="/" element=
         {<Home 
           onCurrentUser={(newUser)=>setCurrentUser(newUser)}
@@ -43,9 +46,13 @@ function App() {
         </Route>
 
         <Route path="/new" element={<CreateNew />}></Route>
+       
         <Route path="/dec-list" element={<DecisionList />}></Route>
+       
         <Route path="/final" element={<FinalDecision />}></Route>
+       
         <Route path="/list-opt" element={<ListOptions />}></Route>
+      
       </Routes>
 
     </BrowserRouter>

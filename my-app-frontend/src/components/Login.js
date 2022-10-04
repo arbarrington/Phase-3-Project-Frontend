@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from "react";
+import ExtractDecisionSequence from "./ExtractDecisionSequence";
 
 
-export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID}){
+export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onUDID}){
  
     // state variable for form input data
     const [ userData, setUserData ] = useState({
@@ -19,12 +20,6 @@ export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID}){
   // once submit their name, posts their username//id//groupname to the backend
   function handleSubmit(e) {
     e.preventDefault();
-
-
-    // const newUser = {
-    //   groupname: userData.groupname,
-    //   username: userData.username,
-    // }
 
     const postedUser = {
         username: userData.username,
@@ -47,10 +42,44 @@ export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID}){
         onCurrentUser(userData)
         onHasLoggedIn()
 
-        // fire off extract decisions sequence
+        // execute extract decisions sequence
+        extractDecisionSequence(postedUser.id)
+        
 
         document.getElementById("login-form").reset();
    };
+
+//    let thisUserDecIDs
+   const [userDIDs, setUserDIDs] = useState([])
+    function extractDecisionSequence(userID) {
+        // fetches from joins
+        // takes all rows where user ids match
+        fetch("http://localhost:9292/joints")
+        .then((r) => r.json()
+        .then((r) => {
+            let thisUserFetch = r.filter(row => row.user_id==14)
+            console.log(thisUserFetch)
+
+            thisUserFetch.map(row => {
+                console.log(row.decision_id)
+            })
+
+            thisUserFetch.forEach(row => {
+                setUserDIDs(userDIDs => [...userDIDs, row.decision_id])
+            })
+            console.log(userDIDs)
+
+
+
+        }))
+
+
+    }
+
+
+
+
+
 
   return (
     <React.Fragment>
