@@ -6,7 +6,11 @@ import DecisionList from './DecisionList';
 import NavBar from './NavBar';
 import Login from './Login';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import Home from './Home';
+
 import React, {useState, useEffect} from 'react';
+
 
 
 // this is all just a "mockup" or skeleton of our page
@@ -25,6 +29,10 @@ function App() {
 
   return (
     <BrowserRouter>
+
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+
           <NavBar />
           <Login
             onCurrentUser={(newUser)=>setCurrentUser(newUser)}
@@ -38,6 +46,7 @@ function App() {
               groupname={currentUser.groupname}
             />}>  
         </Route>
+
         <Route path="/new" element={<CreateNew />}></Route>
         <Route path="/dec-list" element={<DecisionList />}></Route>
         <Route path="/final" element={<FinalDecision />}></Route>
