@@ -10,19 +10,17 @@ export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onUDI
         groupname: ''
     });
 
-    const [userDIDs, setUserDIDs] = useState([])
-
     const [allDecisions, setAllDecisions] = useState([])
 
 
-    useEffect(() => {
-        fetch('http://localhost:9292/decisions')
-        .then((d) => d.json())
-        .then((d) => {
-            console.log("not the exicting console log",d)
-            setAllDecisions(d)
-        })
-        },[])
+useEffect(() => {
+    fetch('http://localhost:9292/decisions')
+    .then((d) => d.json())
+    .then((d) => {
+        console.log("not the exicting console log",d)
+        setAllDecisions(d)
+    })
+    },[])
 
   // updating the user's input as they type...
   function handleChange(e) {
@@ -64,21 +62,18 @@ export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onUDI
 
     function extractDecisionSequence(userID) {
 
-        console.log("inside extract funtion",allDecisions)
-
-
         // fetch the joints info and update state to have the user's decision's ids in an array
         // CHANGE 14 TO USERID ONCE DONE TESTING
         fetch("http://localhost:9292/joints")
         .then((r) => r.json())
         .then((r) => {
-            console.log(r)
-            
+            console.log('joins table get reqpuest output',r)
+            console.log("inside extract funtion",allDecisions)
             r.filter(row => row.user_id==13).forEach((row) => {
                console.log("a row with matching id:",row)
-                // setUserDIDs([...userDIDs, row.decision_id])
                allDecisions.forEach((entry) => {
-                console.log(entry.id)
+                console.log("entry.id",entry.id)
+                console.log("row.decision_id",row.decision_id)
                     if (row.decision_id == entry.id) {
                         console.log("dencions row with matching id:",entry)
                         console.log('howdy parrdderrrer')
