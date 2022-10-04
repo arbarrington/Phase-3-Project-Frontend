@@ -1,27 +1,23 @@
 import React from "react";
+import DecisionList from "./DecisionList";
 import Login from "./Login";
-
-
-
-// terenary here
-// not logged in: must log in
-// logged in: shows their decisions
 
 
 export default function Home({ onCurrentUser, onHasLoggedIn, username, groupname, hasLoggedIn }){
 
     return(
         <div>
+            hello from home
            { hasLoggedIn ? 
-            <p> thanks for logging in, buckagroo</p>
+            <DecisionList
+                username={username}
+                groupname={groupname}
+            />
                 :
             <Login
                 onCurrentUser={onCurrentUser}
                 onHasLoggedIn={onHasLoggedIn}
             />}
-            hello from home
-            <p>{username}</p>
-            <p>{groupname}</p>
         </div>
     )
 }
@@ -32,3 +28,5 @@ export default function Home({ onCurrentUser, onHasLoggedIn, username, groupname
 // push to db ...
 // test getting decisions that are joined to that user
 // make a function file for rendering cards
+
+// pasta users to users database

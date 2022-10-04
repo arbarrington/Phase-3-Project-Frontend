@@ -4,12 +4,10 @@ import React, {useState, useEffect} from "react";
 export default function Login({onCurrentUser, onHasLoggedIn}){
  
     // state variable for form input data
- const [ userData, setUserData ] = useState({
-    username: '',
-    groupname: ''
-  });
-
-
+    const [ userData, setUserData ] = useState({
+        username: '',
+        groupname: ''
+    });
 
   // updating the user's input as they type...
   function handleChange(e) {
@@ -28,10 +26,28 @@ export default function Login({onCurrentUser, onHasLoggedIn}){
       username: userData.username,
     }
 
-    onCurrentUser(newUser)
-    onHasLoggedIn()
+    const postedUser = {
+        username: userData.username,
+        num_decisions_made: 0
+    }
 
-    document.getElementById("login-form").reset();
+    // post ome shit
+    fetch("http://localhost:9292/users", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(postedUser)
+        })
+        .then((r) => r.json())
+        .then((postedUser) => { 
+            console.log(postedUser)
+        })
+
+        onCurrentUser(newUser)
+        onHasLoggedIn()
+
+        document.getElementById("login-form").reset();
    };
 
   return (
@@ -54,3 +70,4 @@ export default function Login({onCurrentUser, onHasLoggedIn}){
   );
 }
     
+
