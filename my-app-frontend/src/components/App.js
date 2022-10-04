@@ -4,8 +4,13 @@ import ListOptions from './ListOptions';
 import Header from './Header';
 import DecisionList from './DecisionList';
 import NavBar from './NavBar';
+import Login from './Login';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 import Home from './Home';
+
+import React, {useState, useEffect} from 'react';
+
 
 
 // this is all just a "mockup" or skeleton of our page
@@ -15,10 +20,33 @@ import Home from './Home';
 // in all componenets youll see export default {component_name}.. i beleive this syntax will work
 
 function App() {
+
+  // most recent user
+  const [currentUser, setCurrentUser ] = useState('')
+
+
+
+
   return (
     <BrowserRouter>
+
       <Routes>
         <Route path="/" element={<Home />}></Route>
+
+          <NavBar />
+          <Login
+            onCurrentUser={(newUser)=>setCurrentUser(newUser)}
+          />
+      <Routes>
+        <Route 
+          path="/" 
+          element=
+            {<Header
+              username={currentUser.username}
+              groupname={currentUser.groupname}
+            />}>  
+        </Route>
+
         <Route path="/new" element={<CreateNew />}></Route>
         <Route path="/dec-list" element={<DecisionList />}></Route>
         <Route path="/final" element={<FinalDecision />}></Route>
