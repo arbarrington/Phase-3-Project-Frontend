@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 
 
-export default function Login({onCurrentUser, onHasLoggedIn}){
+export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID}){
  
     // state variable for form input data
     const [ userData, setUserData ] = useState({
@@ -19,7 +19,6 @@ export default function Login({onCurrentUser, onHasLoggedIn}){
   // once submit their name, posts their username//id//groupname to the backend
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(userData)
 
     const newUser = {
       groupname: userData.groupname,
@@ -31,6 +30,8 @@ export default function Login({onCurrentUser, onHasLoggedIn}){
         num_decisions_made: 0
     }
 
+
+    let userID
     // post ome shit
     fetch("http://localhost:9292/users", {
         method: "POST",
@@ -41,7 +42,7 @@ export default function Login({onCurrentUser, onHasLoggedIn}){
         })
         .then((r) => r.json())
         .then((postedUser) => { 
-            console.log(postedUser)
+            onThisUserID(postedUser.id)
         })
 
         onCurrentUser(newUser)
