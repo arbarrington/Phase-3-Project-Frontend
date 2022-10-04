@@ -70,25 +70,18 @@ export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onUDI
             console.log(r)
             
             r.filter(row => row.user_id==13).forEach((row) => {
-               
+               console.log(row)
                 // setUserDIDs([...userDIDs, row.decision_id])
                allDecisions.forEach((entry) => {
+                console.log(entry.id)
                     if (row.decision_id == entry.id) {
                         console.log(entry)
+                        console.log('howdy parrdderrrer')
                     }
                 })
             })
         })
      }
-
-
-
-
-    
-
-
-
-
 
 
   return (
