@@ -10,22 +10,22 @@ export default function DecisionList({username,groupname}){
     // optionArray should be the state variable theseOptions
     let optionArray = ["option1", "option2", "option3", "option4"]
     let decision = [{
+        id: 7,
         event_type: "Outdoor activities",
         decided: false,
         group_name: "Shelby, Jake, and Austin",
-        event_time: "DateTime.new(2022, 10, 16, 7)",
+        event_time: "DateTime.new(2022, 10, 16, 7, 30)",
         decision_deadline: "DateTime.new(2022, 10, 15, 23, 59"
         }]
 
-    let count = 0
+  
     return(
         <div>
             <ul className="list-of-decisions">
             {
             decision.map((d) => {
-                let numOptions = count +1;
-                count++;
-               return( <DecisionCard key={decision.id} options={optionArray} numOptions={numOptions} decision={d}/> )
+                
+               return( <DecisionCard key={decision.id} options={optionArray} decision={d}/> )
             })
             }
             </ul>
