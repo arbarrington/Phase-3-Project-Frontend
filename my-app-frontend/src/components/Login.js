@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react";
-import ExtractDecisionSequence from "./ExtractDecisionSequence";
 
 
 export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onMatchingDecisions}){
@@ -12,10 +11,6 @@ export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onMat
 
     const [allDecisions, setAllDecisions] = useState([])
     const [jointsData, setJointsData] = useState([])
-
-
-
-
 
 useEffect(() => {
     fetch('http://localhost:9292/decisions')
@@ -72,20 +67,15 @@ useEffect(() => {
    };
 
    // make sure to change num to userID
-   // problem: not setting the state fast enough
     function extractDecisionSequence(userID) {
         let idArray = []
         jointsData.filter(row => row.user_id==3).forEach((row) => {
             allDecisions.forEach((entry) => {
                 if (row.decision_id == entry.id && !idArray.includes(entry.id)) {
-                    //console.log('inside geese nest of doom',entry.id)
-                    //onMatchingDecisions(entry.id)
                     idArray.push(entry.id)
-                    console.log(idArray)
                 }
             })
         })
-
         onMatchingDecisions(idArray)
     }
      

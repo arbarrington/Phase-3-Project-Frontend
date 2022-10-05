@@ -8,12 +8,6 @@ export default function Home({ onCurrentUser, onHasLoggedIn, username, groupname
     const [matchingDecision, setMatchingDecision] = useState([])
     const [thisUserID, setThisUserID] = useState()
 
-    // function dealingWithThisShit(newMatchingDecion) {
-    //     console.log("tHEYRE INSIDE THE HOUSE",newMatchingDecion)
-    //     setMatchingDecision([...matchingDecision,newMatchingDecion])
-    // }
-
-
     return(
         <div>
             hello from home
@@ -22,15 +16,13 @@ export default function Home({ onCurrentUser, onHasLoggedIn, username, groupname
                 username={username}
                 groupname={groupname}
                 matchingDecision={matchingDecision}
-                //map decision list for this sucker
             />
                 :
             <Login
                 onCurrentUser={onCurrentUser}
                 onHasLoggedIn={onHasLoggedIn}
                 onThisUserID={(newUserID)=>setThisUserID(newUserID)}
-                onMatchingDecisions={(newMatchingDecision)=>setMatchingDecision([...matchingDecision, newMatchingDecision])}
-                //onMatchingDecisions={dealingWithThisShit}
+                onMatchingDecisions={(newMatchingDecision) => setMatchingDecision([...matchingDecision, ...newMatchingDecision])}
             />}
         </div>
     )

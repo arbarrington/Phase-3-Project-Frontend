@@ -9,31 +9,21 @@ import {v4 as uuid} from "uuid";
 
 export default function DecisionList({username,groupname,matchingDecision}){
 
-    console.log("matching decision ids from decision list",matchingDecision)
+    console.log("inside decision list",matchingDecision)
 
     return(
         <div>
             <ul className="list-of-decisions">
                 <p> thanks for logging in, buckagroo {username} of {groupname}</p>
                 <p> howdy from the ladn of decions lists</p>
-                {matchingDecision.map(id_num =>
+                <p> time for some fun and {matchingDecision}</p>
+                {matchingDecision.map(element =>
                     <DecisionCard
                         key={uuid()}
-                        decisionID={id_num}
+                        decisionID={element}
                     />
                 )}
             </ul>
         </div>
-
-
-    )
-    
+    ) 
 }
-
-
-// allWxData.map((eachCity) =>
-//                 <RenderCard
-//                     key={uuid()}
-//                     weather={eachCity}
-//                 />
-//             )
