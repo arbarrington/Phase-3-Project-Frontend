@@ -45,6 +45,14 @@ function dateFormatValidation (inputDate) {
     else {return `DateTime.new(${year}, ${month}, ${date}, ${hour}, ${minute})`}
 }
 
+const postedDecision = {
+    event_type: freshDecision.decisionName,
+    decided: false,
+    group_name: freshDecision.groupName,
+    event_time: freshDecision.eventTime,
+    decision_deadline: freshDecision.decisionDeadline
+}
+
  function handleFreshSubmit(e) {
      e.preventDefault()
      console.log(`Option State Array`)
@@ -52,20 +60,32 @@ function dateFormatValidation (inputDate) {
      console.log(`Create Decisions Array`)
      console.log(freshDecision)
 
-//     fetch(`https://weatherdbi.herokuapp.com/data/weather/${freshCity}`)
-//     .then(res => res.json())
-//     .then (data => {
-//         if (data.region) {
-//             formattedCity = data.region
-//             setCityIsValid(true)
-//             onFreshCityDrama(formattedCity)
-//         } else {
-//             setCityIsValid(false)
-//             setThisCity(freshCity)
-//         }
-//     })
-     document.getElementById('freshCityForm').reset()
- }
+    fetch("http://localhost:9292/create", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(postedDecision)
+        })
+        .then((r) => r.json())
+        .then((postedDecision) => { 
+            console.log('success:', postedDecision)
+        })
+   };   
+ 
+//  const data = { username: 'example' };
+
+// fetch('https://example.com/profile', {
+//   method: 'POST', // or 'PUT'
+//   headers: {
+//     'Content-Type': 'application/json',
+//   },
+//   body: JSON.stringify(data),
+// })
+//   .then((response) => response.json())
+//   .then((data) => {
+//     console.log('Success:', data);
+//   })
 
 return (
 <React.Fragment>
