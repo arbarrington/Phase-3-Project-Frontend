@@ -8,7 +8,7 @@ import DecisionCard from "./DecisionCard";
 
 export default function DecisionList({username,groupname}){
     // optionArray should be the state variable theseOptions
-    let optionArray = ["option1", "option2", "option3", "option4"]
+    let optionArray = ["option1", "option2", "option3", "option4", "option5"]
     let decision = [{
         id: 7,
         event_type: "Outdoor activities",
@@ -16,19 +16,26 @@ export default function DecisionList({username,groupname}){
         group_name: "Shelby, Jake, and Austin",
         event_time: "DateTime.new(2022, 10, 16, 7, 30)",
         decision_deadline: "DateTime.new(2022, 10, 15, 23, 59"
-        }]
+        },
+        {
+        id: 8,
+        event_type: "Happy Hour",
+        decided: false,
+        group_name: "Phase 3",
+        event_time: "DateTime.new(2022, 10, 28, 18, 00)",
+        decision_deadline: "DateTime.new(2022, 10, 15, 23, 59"
+            }]
 
   
     return(
         <div>
-            <ul className="list-of-decisions">
             {
             decision.map((d) => {
                 
                return( <DecisionCard key={decision.id} options={optionArray} decision={d}/> )
             })
             }
-            </ul>
+            <input id="submitdecision" type="submit" value="Submit!" />
         </div>
 
 
