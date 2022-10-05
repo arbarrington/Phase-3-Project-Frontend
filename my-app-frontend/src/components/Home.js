@@ -5,7 +5,7 @@ import Fetchs from "./Fetchs";
 
 export default function Home({ onCurrentUser, onHasLoggedIn, username, groupname, hasLoggedIn }){
 
-    const [currentUsersDecision, setCurrentUserDecsision] = useState([])
+    const [matchingDecision, setMatchingDecision] = useState([])
     const [thisUserID, setThisUserID] = useState()
 
 
@@ -17,6 +17,7 @@ export default function Home({ onCurrentUser, onHasLoggedIn, username, groupname
             <DecisionList
                 username={username}
                 groupname={groupname}
+                matchingDecision={matchingDecision}
                 //map decision list for this sucker
             />
                 :
@@ -24,7 +25,7 @@ export default function Home({ onCurrentUser, onHasLoggedIn, username, groupname
                 onCurrentUser={onCurrentUser}
                 onHasLoggedIn={onHasLoggedIn}
                 onThisUserID={(newUserID)=>setThisUserID(newUserID)}
-                //onUDID={(newDecisions)=>setCurrentUserDecsision([...currentUsersDecision, newDecisions])}
+                onMatchingDecisions={(newMatchingDecision)=>setMatchingDecision([...matchingDecision, newMatchingDecision])}
             />}
         </div>
     )

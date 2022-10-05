@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import ExtractDecisionSequence from "./ExtractDecisionSequence";
 
 
-export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onUDID}){
+export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onMatchingDecisions}){
  
     // state variable for form input data
     const [ userData, setUserData ] = useState({
@@ -11,16 +11,25 @@ export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onUDI
     });
 
     const [allDecisions, setAllDecisions] = useState([])
+    const [jointsData, setJointsData] = useState([])
 
     const [matchingDecision, setMatchingDecisions] = useState([])
+
 
 
 useEffect(() => {
     fetch('http://localhost:9292/decisions')
     .then((d) => d.json())
     .then((d) => {
-        console.log("not the exicting console log",d)
         setAllDecisions(d)
+    })
+    },[])
+
+useEffect(() => {
+    fetch('http://localhost:9292/joints')
+    .then((d) => d.json())
+    .then((d) => {
+        setJointsData(d)
     })
     },[])
 
@@ -57,38 +66,24 @@ useEffect(() => {
         onHasLoggedIn()
 
         // execute extract decisions sequence
-        extractDecisionSequence(postedUser.id)        
+        extractDecisionSequence(postedUser.id)     
 
         document.getElementById("login-form").reset();
    };
 
+   // make sure to change 6 to userID
+   // problem: not setting the state fast enough
     function extractDecisionSequence(userID) {
-
-        // fetch the joints info and update state to have the user's decision's ids in an array
-        // CHANGE NUMBer TO USERID ONCE DONE TESTING
-        fetch("http://localhost:9292/joints")
-        .then((r) => r.json())
-        .then((r) => {
-            console.log("inside extract funtion",allDecisions)
-            r.filter(row => row.user_id==6).forEach((row) => {
-               allDecisions.forEach((entry) => {
-                    if (row.decision_id == entry.id) {
-                        // literallyjustthis(entry.event_type)
-                        setMatchingDecisions((entry) => [...matchingDecision,entry.event_type])
-                        console.log(matchingDecision)
-                    }
-                })
+        jointsData.filter(row => row.user_id==6).forEach((row) => {
+            allDecisions.forEach((entry) => {
+                if (row.decision_id == entry.id) {
+                    //console.log(entry.event_type)
+                    onMatchingDecisions(entry.event_type)
+                }
             })
         })
-     }
-
-    //  function literallyjustthis(newstuff) {
-    //     setMatchingDecisions(newstuff => [...matchingDecision, newstuff])
-    //     console.log(matchingDecision)
-    //  }
-
-
-
+    }
+     
   return (
     <React.Fragment>
     <div>
