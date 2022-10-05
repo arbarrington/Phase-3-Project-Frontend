@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from "react";
-import ExtractDecisionSequence from "./ExtractDecisionSequence";
 
 
-export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onUDID}){
+export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onMatchingDecisions}){
  
     // state variable for form input data
     const [ userData, setUserData ] = useState({
@@ -10,9 +9,24 @@ export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onUDI
         groupname: ''
     });
 
-    const [userDIDs, setUserDIDs] = useState([])
-
     const [allDecisions, setAllDecisions] = useState([])
+    const [jointsData, setJointsData] = useState([])
+
+useEffect(() => {
+    fetch('http://localhost:9292/decisions')
+    .then((d) => d.json())
+    .then((d) => {
+        setAllDecisions(d)
+    })
+    },[])
+
+useEffect(() => {
+    fetch('http://localhost:9292/joints')
+    .then((d) => d.json())
+    .then((d) => {
+        setJointsData(d)
+    })
+    },[])
 
   // updating the user's input as they type...
   function handleChange(e) {
@@ -47,50 +61,24 @@ export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onUDI
         onHasLoggedIn()
 
         // execute extract decisions sequence
-        extractDecisionSequence(postedUser.id)        
+        extractDecisionSequence(postedUser.id)     
 
         document.getElementById("login-form").reset();
    };
 
+   // make sure to change num to userID
     function extractDecisionSequence(userID) {
-
-
-        fetch('http://localhost:9292/decisions')
-        .then((d) => d.json())
-        .then((d) => {
-            console.log(d)
-            setAllDecisions([...allDecisions, d])
-        })
-
-        // fetch the joints info and update state to have the user's decision's ids in an array
-        // CHANGE 14 TO USERID ONCE DONE TESTING
-        fetch("http://localhost:9292/joints")
-        .then((r) => r.json())
-        .then((r) => {
-            console.log(r)
-            
-            r.filter(row => row.user_id==13).forEach((row) => {
-               
-                // setUserDIDs([...userDIDs, row.decision_id])
-               allDecisions.forEach((entry) => {
-                    if (row.decision_id == entry.id) {
-                        console.log(entry)
-                    }
-                })
+        let idArray = []
+        jointsData.filter(row => row.user_id==1).forEach((row) => {
+            allDecisions.forEach((entry) => {
+                if (row.decision_id == entry.id && !idArray.includes(entry.id)) {
+                    idArray.push(entry.id)
+                }
             })
         })
-     }
-
-
-
-
-    
-
-
-
-
-
-
+        onMatchingDecisions(idArray)
+    }
+     
   return (
     <React.Fragment>
     <div className="login-full">
