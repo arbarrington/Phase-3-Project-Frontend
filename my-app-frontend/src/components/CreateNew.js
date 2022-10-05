@@ -15,6 +15,10 @@ const [freshDecision, setFreshDecision] = useState({
 
 const [theseOptions, setTheseOptions] = useState([])
 
+
+const [decID, setDecID] = useState()
+
+
 function handleChange(e) {
     setFreshDecision({
         ...freshDecision, [e.target.name]: e.target.value,
@@ -23,8 +27,9 @@ function handleChange(e) {
 
 function handleChangeOptions(e) {
     setTheseOptions(e.target.value
-    .split(',')); 
+    .split(','));
 }
+
 
 // MM/DD HH:MM
 function dateFormatValidation (inputDate) {
@@ -44,7 +49,10 @@ function dateFormatValidation (inputDate) {
     }
     else {return `DateTime.new(${year}, ${month}, ${date}, ${hour}, ${minute})`}
 }
-
+let postedOptions = []
+theseOptions.forEach(option =>{
+    postedOptions.push(option)
+})
 const postedDecision = {
     event_type: freshDecision.decisionName,
     decided: false,
@@ -52,6 +60,7 @@ const postedDecision = {
     event_time: freshDecision.eventTime,
     decision_deadline: freshDecision.decisionDeadline
 }
+let decisionId 
 
  function handleFreshSubmit(e) {
      e.preventDefault()
@@ -60,6 +69,7 @@ const postedDecision = {
      console.log(`Create Decisions Array`)
      console.log(freshDecision)
 
+    // useEffect(()=>{
     fetch("http://localhost:9292/create", {
         method: "POST",
         headers: {
@@ -69,10 +79,38 @@ const postedDecision = {
         })
         .then((r) => r.json())
         .then((postedDecision) => { 
-            console.log('success:', postedDecision)
+          decisionId = postedDecision.id
+        setDecID(postedDecision.id)
+            console.log('success:', decisionId)
         })
+    // }, [])
+        console.log(decisionId)
+        theseOptions.forEach(entry =>{
+        const option ={
+            option_name: entry,
+            num_votes: 0,
+            decision_id: decisionId,
+            chosen: false
+        }
+
+        fetch("http://localhost:9292/create-options", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(option)
+            })
+            .then((r) => r.json())
+            .then((option) => { 
+                console.log('success option:', option)
+            })
+        // )
+        })
+
+
    };   
  
+
 
 return (
 <React.Fragment>
