@@ -24,7 +24,7 @@ export default function DecisionCard({options, decision}) {
     }
 
     function rubyDateToMMDDHHMM (date) {
-        let formattedDate = `${parseInt(date.split(',')[1])}/${parseInt(date.split(',')[2])} ${parseInt(date.split(',')[3])}:${parseInt(date.split(',')[4])}}`
+        let formattedDate = `${parseInt(date.split(',')[1])}/${parseInt(date.split(',')[2])} ${parseInt(date.split(',')[3])}:${parseInt(date.split(',')[4])}`
         return formattedDate
     }
 
