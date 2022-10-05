@@ -30,15 +30,18 @@ export default function DecisionCard({options, decision}) {
 
     function displayOptions(optionArray) {
         return (
-            <div >
-                {optionArray.map((option) => option)}
-                <input   
-                    type="radio" 
-                    name="answer" 
-                    className="radio-view" 
-                    onClick={hasChosenOne ? handleSecondChoice() : handleFirstChoice()}
-                /> 
-            </div> 
+               optionArray.map((option) => {
+                    return (
+                        <label>
+                        <input   
+                        type="radio" 
+                        name="answer" 
+                        className="radio" 
+                        onClick={hasChosenOne ? handleSecondChoice() : handleFirstChoice()}
+                        />{option}
+                        </label>  
+                    )
+                }) 
         )
     }
         
