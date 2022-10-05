@@ -34,7 +34,8 @@ export default function DecisionCard({options, decision}) {
                     return (
                         <label>
                         <input   
-                        type="radio" 
+                        type="number"
+                        max={optionArray.length} 
                         name="answer" 
                         className="radio" 
                         onClick={hasChosenOne ? handleSecondChoice() : handleFirstChoice()}
