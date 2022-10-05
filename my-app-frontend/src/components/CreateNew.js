@@ -15,10 +15,6 @@ const [freshDecision, setFreshDecision] = useState({
 
 const [theseOptions, setTheseOptions] = useState([])
 
-
-const [decID, setDecID] = useState()
-
-
 function handleChange(e) {
     setFreshDecision({
         ...freshDecision, [e.target.name]: e.target.value,
@@ -29,7 +25,6 @@ function handleChangeOptions(e) {
     setTheseOptions(e.target.value
     .split(','));
 }
-
 
 // MM/DD HH:MM
 function dateFormatValidation (inputDate) {
@@ -49,10 +44,13 @@ function dateFormatValidation (inputDate) {
     }
     else {return `DateTime.new(${year}, ${month}, ${date}, ${hour}, ${minute})`}
 }
+
 let postedOptions = []
-theseOptions.forEach(option =>{
+
+theseOptions.forEach(option => {
     postedOptions.push(option)
 })
+
 const postedDecision = {
     event_type: freshDecision.decisionName,
     decided: false,
@@ -60,38 +58,37 @@ const postedDecision = {
     event_time: freshDecision.eventTime,
     decision_deadline: freshDecision.decisionDeadline
 }
+
 let decisionId 
 
- function handleFreshSubmit(e) {
-     e.preventDefault()
-     console.log(`Option State Array`)
-     console.log("options",theseOptions)
-     console.log(`Create Decisions Array`)
-     console.log(freshDecision)
+    function handleFreshSubmit(e) {
+        e.preventDefault()
+        fetch("http://localhost:9292/create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(postedDecision)
+            })
+            .then((r) => r.json())
+            .then((postedDecision) => { 
+                decisionId = postedDecision.id
+                console.log('success:', decisionId)
+                test(decisionId)
+            })
+    }
 
-    // useEffect(()=>{
-    fetch("http://localhost:9292/create", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(postedDecision)
-        })
-        .then((r) => r.json())
-        .then((postedDecision) => { 
-          decisionId = postedDecision.id
-        setDecID(postedDecision.id)
-            console.log('success:', decisionId)
-        })
-    // }, [])
+    function test(decisionId) {
+        
         console.log(decisionId)
-        theseOptions.forEach(entry =>{
-        const option ={
-            option_name: entry,
-            num_votes: 0,
-            decision_id: decisionId,
-            chosen: false
-        }
+        
+        theseOptions.forEach(entry => {
+            const option = {
+                option_name: entry,
+                num_votes: 0,
+                decision_id: decisionId,
+                chosen: false
+            }
 
         fetch("http://localhost:9292/create-options", {
             method: "POST",
@@ -104,11 +101,12 @@ let decisionId
             .then((option) => { 
                 console.log('success option:', option)
             })
-        // )
-        })
+        
+        }
+    )}
+    
+    
 
-
-   };   
  
 
 
@@ -155,3 +153,11 @@ return (
 
     
 }
+
+
+
+
+// console.log(`Option State Array`)
+// console.log("options",theseOptions)
+// console.log(`Create Decisions Array`)
+// console.log(freshDecision)

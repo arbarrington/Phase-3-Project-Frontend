@@ -24,7 +24,6 @@ export default function DecisionCard({options, decision}) {
                         max={optionArray.length} 
                         name="answer" 
                         className="radio" 
-                        onClick={console.log('hi')}
                         />{option}
                         </label>  
                     )
