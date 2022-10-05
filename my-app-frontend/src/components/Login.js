@@ -69,7 +69,7 @@ useEffect(() => {
    // make sure to change num to userID
     function extractDecisionSequence(userID) {
         let idArray = []
-        jointsData.filter(row => row.user_id==1).forEach((row) => {
+        jointsData.filter(row => row.user_id==3).forEach((row) => {
             allDecisions.forEach((entry) => {
                 if (row.decision_id == entry.id && !idArray.includes(entry.id)) {
                     idArray.push(entry.id)

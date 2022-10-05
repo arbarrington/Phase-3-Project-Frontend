@@ -3,31 +3,16 @@ import React, {useState} from "react";
 import { Form } from "react-router-dom";
 
 export default function DecisionCard({options, decision}) {
-    const [hasChosenOne, setHasChosenOne] = useState(false)
-    const [hasChosenTwo, setHasChosenTwo] = useState(false)
-    
+  
 
-    function handleFirstChoice(){
-       if (hasChosenOne == true)
-        {console.log("you've already chosen one")}
-        else {setHasChosenOne(true)
-        console.log("first click")}
-    }
-
-    function handleSecondChoice(){
-        if (hasChosenOne == false) {
-            console.log('awaiting first click')
-        } else if (hasChosenOne == true && hasChosenTwo == false)
-        {console.log("second click")
-        setHasChosenTwo(true)}
-        else
-        {console.log('two choices already made')}
-    }
+    //check yo date
 
     function rubyDateToMMDDHHMM (date) {
         let formattedDate = `${parseInt(date.split(',')[1])}/${parseInt(date.split(',')[2])} ${parseInt(date.split(',')[3])}:${parseInt(date.split(',')[4])}`
+
         return formattedDate
     }
+
 
     function displayOptions(optionArray) {
         return (
@@ -39,7 +24,7 @@ export default function DecisionCard({options, decision}) {
                         max={optionArray.length} 
                         name="answer" 
                         className="radio" 
-                        onClick={hasChosenOne ? handleSecondChoice() : handleFirstChoice()}
+                        onClick={console.log('hi')}
                         />{option}
                         </label>  
                     )
