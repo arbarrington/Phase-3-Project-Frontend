@@ -13,7 +13,7 @@ export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onMat
     const [allDecisions, setAllDecisions] = useState([])
     const [jointsData, setJointsData] = useState([])
 
-    const [matchingDecision, setMatchingDecisions] = useState([])
+
 
 
 
@@ -71,17 +71,22 @@ useEffect(() => {
         document.getElementById("login-form").reset();
    };
 
-   // make sure to change 6 to userID
+   // make sure to change num to userID
    // problem: not setting the state fast enough
     function extractDecisionSequence(userID) {
-        jointsData.filter(row => row.user_id==6).forEach((row) => {
+        let idArray = []
+        jointsData.filter(row => row.user_id==3).forEach((row) => {
             allDecisions.forEach((entry) => {
-                if (row.decision_id == entry.id) {
-                    //console.log(entry.event_type)
-                    onMatchingDecisions(entry.event_type)
+                if (row.decision_id == entry.id && !idArray.includes(entry.id)) {
+                    //console.log('inside geese nest of doom',entry.id)
+                    //onMatchingDecisions(entry.id)
+                    idArray.push(entry.id)
+                    console.log(idArray)
                 }
             })
         })
+
+        onMatchingDecisions(idArray)
     }
      
   return (

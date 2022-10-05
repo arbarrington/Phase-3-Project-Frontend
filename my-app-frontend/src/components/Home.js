@@ -8,6 +8,10 @@ export default function Home({ onCurrentUser, onHasLoggedIn, username, groupname
     const [matchingDecision, setMatchingDecision] = useState([])
     const [thisUserID, setThisUserID] = useState()
 
+    // function dealingWithThisShit(newMatchingDecion) {
+    //     console.log("tHEYRE INSIDE THE HOUSE",newMatchingDecion)
+    //     setMatchingDecision([...matchingDecision,newMatchingDecion])
+    // }
 
 
     return(
@@ -26,16 +30,8 @@ export default function Home({ onCurrentUser, onHasLoggedIn, username, groupname
                 onHasLoggedIn={onHasLoggedIn}
                 onThisUserID={(newUserID)=>setThisUserID(newUserID)}
                 onMatchingDecisions={(newMatchingDecision)=>setMatchingDecision([...matchingDecision, newMatchingDecision])}
+                //onMatchingDecisions={dealingWithThisShit}
             />}
         </div>
     )
 }
-
-// loggedIn ? interate over decisions through render card function that match user id : <Login />
-
-// assign user id stuff - happens auto when push to db??
-// push to db ...
-// test getting decisions that are joined to that user
-// make a function file for rendering cards
-
-// pasta users to users database
