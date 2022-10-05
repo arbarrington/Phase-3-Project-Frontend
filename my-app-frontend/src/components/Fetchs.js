@@ -2,8 +2,17 @@ import React, {useState, useEffect} from "react";
 
 export default function Fetchs(){
 
-
+    //test
+    // function readPending (table, pending) {
+    //     useEffect(() => {
+    //         fetch(`http;//localhost:9292/${table}`)
+    //         .then((d) => d.json()
+    //         .then((d => (console.log(d)))))
+    //     }, [pending])
+    // }
+    
     //Reads
+    
     const readDecisions = 
         useEffect(() => {
             fetch('http;//localhost:9292/decisions')

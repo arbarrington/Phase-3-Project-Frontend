@@ -22,32 +22,57 @@ function handleChange(e) {
   }
 
 function handleChangeOptions(e) {
-    setTheseOptions([
-        ...theseOptions, e.target.value
-    ]); 
+    setTheseOptions(e.target.value
+    .split(',')); 
+}
+
+// MM/DD HH:MM
+function dateFormatValidation (inputDate) {
+    let year = new Date().getFullYear()
+    let month = inputDate.substring(0,2).parseInt()
+    let date = inputDate.substring(3,5).parseInt()
+    let hour = inputDate.substring(6,8).parseInt()
+    let minute = inputDate.substring(9,11).parseInt()
+    if (inputDate.length !== 11) { 
+        return false; 
+    }
+    else if (inputDate.substring(2, 3) !== '/' || inputDate.substring(8, 9) !== ':') { 
+        return false; 
+    } 
+    else if (month > 12 || date > 31 || hour > 23 || minute > 59) {
+        return false;
+    }
+    else {return `DateTime.new(${year}, ${month}, ${date}, ${hour}, ${minute})`}
+}
+
+const postedDecision = {
+    event_type: freshDecision.decisionName,
+    decided: false,
+    group_name: freshDecision.groupName,
+    event_time: freshDecision.eventTime,
+    decision_deadline: freshDecision.decisionDeadline
 }
 
  function handleFreshSubmit(e) {
      e.preventDefault()
      console.log(`Option State Array`)
-     console.log(theseOptions)
+     console.log("options",theseOptions)
      console.log(`Create Decisions Array`)
      console.log(freshDecision)
 
-//     fetch(`https://weatherdbi.herokuapp.com/data/weather/${freshCity}`)
-//     .then(res => res.json())
-//     .then (data => {
-//         if (data.region) {
-//             formattedCity = data.region
-//             setCityIsValid(true)
-//             onFreshCityDrama(formattedCity)
-//         } else {
-//             setCityIsValid(false)
-//             setThisCity(freshCity)
-//         }
-//     })
-     document.getElementById('freshCityForm').reset()
- }
+    fetch("http://localhost:9292/create", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(postedDecision)
+        })
+        .then((r) => r.json())
+        .then((postedDecision) => { 
+            console.log('success:', postedDecision)
+        })
+   };   
+ 
 
 return (
 <React.Fragment>

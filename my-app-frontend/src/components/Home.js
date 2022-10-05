@@ -10,7 +10,7 @@ export default function Home({ onCurrentUser, onHasLoggedIn, username, groupname
 
     return(
         <div>
-            hello from home
+            <h1>Gaggle</h1>
            { hasLoggedIn ? 
             <DecisionList
                 username={username}

@@ -81,17 +81,22 @@ useEffect(() => {
      
   return (
     <React.Fragment>
-    <div>
+    <div className="login-full">
       <form onSubmit={handleSubmit} id="login-form">
-        <label>
-          <input type="text" name="username" onChange={handleChange} className="input-text" placeholder="Your Username"/>
+        <label className="username">
+          <input type="text" name="username" onChange={handleChange} className="input-username" placeholder="Your Goose Name"/>
         </label>
+        <br></br>
+        <br></br>
         <label>
-          <input type="text" name="groupname" onChange={handleChange} className="input-text" placeholder="Your Group's Name"/>
+          <input type="text" name="groupname" onChange={handleChange} className="input-group" placeholder="Your Flock's Name"/>
         </label>
+        <br></br>
+        <br></br>
         <button 
             type="submit" 
             className="submit">
+              Fly South!
         </button>
       </form>
     </div>
