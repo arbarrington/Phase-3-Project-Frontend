@@ -25,6 +25,9 @@ function App() {
   // state for a new decision id that gets created
   const [decId, setDecId] = useState()
 
+  // cheat code to pass options around
+  const [createdOptions, setCreatedOptions] = useState([])
+
   return (
     <BrowserRouter>
       {hasLoggedIn ? <NavBar /> : <div></div>}
@@ -44,11 +47,15 @@ function App() {
 
         <Route path="/new" element=
           {<CreateNew 
-            onGetDecisionId={(newDecId)=>setDecId(newDecId)}/>
+            onGetDecisionId={(newDecId)=>setDecId(newDecId)}
+            onCreatedOptions={(newOptions)=>setCreatedOptions([...createdOptions, newOptions])}
+            />
           }>
         </Route>
        
-        <Route path="/dec-list" element={<DecisionList />}></Route>
+        <Route path="/dec-list" element={<DecisionList 
+          createdOptions={createdOptions}
+        />}></Route>
        
         <Route path="/final" element={<FinalDecision />}></Route>
        

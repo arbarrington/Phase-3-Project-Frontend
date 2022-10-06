@@ -72,6 +72,7 @@ export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onMat
         jointsData.filter(row => row.group_name==postedGroupName).forEach((row) => {
             allDecisions.forEach((entry) => {
                 if (row.decision_id == entry.id && !idArray.includes(entry.id)) {
+                    console.log(entry.id)
                     idArray.push(entry.id)
                 }
             })

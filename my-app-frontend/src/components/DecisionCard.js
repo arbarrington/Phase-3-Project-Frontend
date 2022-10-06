@@ -4,37 +4,38 @@ import React, {useState} from "react";
 
 export default function DecisionCard({options, decision}) {
     //check yo date
-    function rubyDateToMMDDHHMM (date) {
-        let formattedDate = `${parseInt(date.split(',')[1])}/${parseInt(date.split(',')[2])} ${parseInt(date.split(',')[3])}:${parseInt(date.split(',')[4])}`
-        return formattedDate
-    }
 
+    console.log('options insdie dec card',options)
+    console.log(decision)
+    
     function handleVote(e) {
-        console.log(e.target.value)
+        console.log(e.target.id)
         console.log(e.target)
+        fetch(`http://localhost:9292/options/${3}`,{method: 'PATCH',
+        headers: {'Content-Type': 'application/json',},
+        body: JSON.stringify({num_votes: e.target.value})})
+        .then(res => res.json())
     }
-
     function displayOptions(optionArray) {
         return (
                optionArray.map((option) => {
-                    return (
-                        <label>
-                        <input  
-                        optID={option.key}
-                        decID={decision.id}
-                        type="number"
-                        max={optionArray.length} 
-                        name="answer" 
-                        className="radio" 
-                        onChange={handleVote}
-                        />{option.option_name}
-                        {/* />{option} */}
-                        </label>  
-                    )
-                }) 
+                    if (option.decision_id == decision.id) {
+                        return (
+                            <label>
+                            <input
+                            id={decision.id}
+                            type="number"
+                            max={optionArray.length}
+                            name="answer"
+                            className="radio"
+                            onChange={handleVote}
+                            />{option.option_name}
+                            </label>
+                        )
+                    }
+                })
         )
     }
-        
     return (
         <div className="decisionCard">
             <form>
