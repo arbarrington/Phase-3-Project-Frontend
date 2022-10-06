@@ -30,6 +30,12 @@ function handleChangeOptions(e) {
     .split(','));
 }
 
+// limit number of options that can be input for a decision
+function optionInputValidation (inputOptions) {
+    if (inputOptions.split(',').length > 4 || inputOptions.split(',').length <2)
+        return false;
+}
+
 
 // MM/DD HH:MM
 function dateFormatValidation (inputDate) {
