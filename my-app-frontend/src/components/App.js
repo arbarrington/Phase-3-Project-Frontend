@@ -28,6 +28,8 @@ function App() {
   // cheat code to pass options around
   const [createdOptions, setCreatedOptions] = useState([])
 
+  const [rerender, setReRender] = useState(false)
+
   return (
     <BrowserRouter>
       {hasLoggedIn ? <NavBar /> : <div></div>}
@@ -49,13 +51,15 @@ function App() {
           {<CreateNew 
             onGetDecisionId={(newDecId)=>setDecId(newDecId)}
             onCreatedOptions={(newOptions)=>setCreatedOptions([...createdOptions, newOptions])}
+            onSetRerender={()=>setReRender(true)}
             />
           }>
         </Route>
        
-        <Route path="/dec-list" element={<DecisionList 
+        {/* <Route path="/dec-list" element={<DecisionList 
           createdOptions={createdOptions}
-        />}></Route>
+          rerender={rerender}
+        />}></Route> */}
        
         <Route path="/final" element={<FinalDecision />}></Route>
        

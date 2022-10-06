@@ -12,7 +12,7 @@ export default function NavBar(){
         <div className="nav-bar">
             <Link to="/new">Create New Decision Choice</Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <Link to="/final">See Final Decision</Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <Link to="/dec-list">Decision List</Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <Link to="/dec-opts">Decision List</Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <Link to="/list-opt">List Options</Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <Link to="/">Home</Link>
 

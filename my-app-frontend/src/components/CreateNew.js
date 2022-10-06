@@ -80,7 +80,7 @@ function handleFreshSubmit(e) {
             onGetDecisionId(postedDecision.id)
 
         })
-    goToList()
+    //goToList()
 }
 
 function postOptions(decisionId) {
@@ -113,12 +113,12 @@ function postOptions(decisionId) {
     )
     onCreatedOptions(cheaterOptArray)
 }
-function goToList() {
-    navigate('/')
-    console.log('Im trying to navigate')
-    onSetRerender()
+// function goToList() {
+//     navigate('/')
+//     console.log('Im trying to navigate')
+//     onSetRerender()
 
-}
+// }
 
 function executeJointsSequence(decisionID) {
 
