@@ -26,14 +26,21 @@ function App() {
   // state for determing if logged in or not
   const [hasLoggedIn, setHasLoggedIn] = useState(false)
 
+
   // state for getting group name -> used to determine which decisions to render
   const [currentGroupName, setCurrentGroupName] = useState('')
 
   // state for a new decision id that gets created
   const [decId, setDecId] = useState()
 
+  function fetchResource(url){
+    return fetch(url).then(res => res.json())}
 
-
+    function createResource(url, body){
+      return fetch(url,{method: 'POST',
+      headers: {'Content-Type': 'application/json',},
+      body: JSON.stringify(body),})
+      .then(res => res.json())}
 
   return (
     <BrowserRouter>
@@ -49,7 +56,9 @@ function App() {
           onHasLoggedIn={() => setHasLoggedIn(true)}
           hasLoggedIn={hasLoggedIn}
           username={currentUser.username}
-          groupname={currentUser.groupname}/>
+          groupname={currentUser.groupname}
+          createResource={createResource}
+          fetchResource={fetchResource}/>
         }>
         </Route>
 
@@ -58,8 +67,10 @@ function App() {
             onGetDecisionId={(newDecId)=>setDecId(newDecId)}/>
           }>
         </Route>
+        
+        //<Route path="/new" element={<CreateNew createResource={createResource}/>}></Route>
        
-        <Route path="/dec-list" element={<DecisionList />}></Route>
+        <Route path="/dec-list" element={<DecisionList fetchResource={fetchResource}/>}></Route>
        
         <Route path="/final" element={<FinalDecision />}></Route>
        

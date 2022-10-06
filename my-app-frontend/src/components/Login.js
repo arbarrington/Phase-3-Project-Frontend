@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 
 
-export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onMatchingDecisions, onCurrentGroupName}){
+export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onMatchingDecisions, fetchResource, createResource, onCurrentGroupName}){
  
     // state variable for form input data
     const [ userData, setUserData ] = useState({
@@ -13,16 +13,14 @@ export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onMat
     const [jointsData, setJointsData] = useState([])
 
 useEffect(() => {
-    fetch('http://localhost:9292/decisions')
-    .then((d) => d.json())
+    fetchResource('http://localhost:9292/decisions')
     .then((d) => {
         setAllDecisions(d)
     })
     },[])
 
 useEffect(() => {
-    fetch('http://localhost:9292/joints')
-    .then((d) => d.json())
+    fetchResource('http://localhost:9292/joints')
     .then((d) => {
         setJointsData(d)
         console.log(d)
@@ -39,11 +37,11 @@ useEffect(() => {
   // once submit their name, posts their username//id//groupname to the backend
   function handleSubmit(e) {
     e.preventDefault();
-
     const postedUser = {
         username: userData.username,
         num_decisions_made: 0
     }
+
 
     // post the user who just logged in
     fetch("http://localhost:9292/users", {
@@ -54,6 +52,9 @@ useEffect(() => {
         body: JSON.stringify(postedUser)
         })
         .then((r) => r.json())
+
+    // post user
+    createResource("http://localhost:9292/users", postedUser)
         .then((postedUser) => { 
             onThisUserID(postedUser.id)
         })

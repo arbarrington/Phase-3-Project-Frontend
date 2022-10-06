@@ -2,7 +2,7 @@
 
 import React, {useState, useEffect} from "react";
 
-export default function CreateNew(){
+export default function CreateNew({createResource}){
 
 const [freshDecision, setFreshDecision] = useState({
     decisionName: '',
@@ -25,6 +25,14 @@ function handleChangeOptions(e) {
     setTheseOptions(e.target.value
     .split(','));
 }
+
+
+// limit number of options that can be input for a decision
+function optionInputValidation (inputOptions) {
+    if (inputOptions.split(',').length > 4 || inputOptions.split(',').length <2)
+        return false;
+}
+
 
 // MM/DD HH:MM
 function dateFormatValidation (inputDate) {
@@ -80,6 +88,23 @@ let decisionId
 
     function test(decisionId) {
         
+ function handleFreshSubmit(e) {
+     e.preventDefault()
+     console.log(`Option State Array`)
+     console.log("options",theseOptions)
+     console.log(`Create Decisions Array`)
+     console.log(freshDecision)
+
+    // useEffect(()=>{
+
+    createResource("http://localhost:9292/create",postedDecision)
+        .then((postedDecision) => { 
+          decisionId = postedDecision.id
+        setDecID(postedDecision.id)
+            console.log('success:', decisionId)
+        })
+    // }, [])
+
         console.log(decisionId)
         
         theseOptions.forEach(entry => {
@@ -90,14 +115,7 @@ let decisionId
                 chosen: false
             }
 
-        fetch("http://localhost:9292/create-options", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(option)
-            })
-            .then((r) => r.json())
+        createResource("http://localhost:9292/create-options",option)
             .then((option) => { 
                 console.log('success option:', option)
             })
