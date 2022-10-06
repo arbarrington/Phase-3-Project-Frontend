@@ -18,7 +18,7 @@ import React, {useState, useEffect} from 'react';
 // Header may exisit in navbar or vis versa
 // in all componenets youll see export default {component_name}.. i beleive this syntax will work
 
-function App() {
+export default function App() {
 
   // most recent user
   const [currentUser, setCurrentUser ] = useState('')
@@ -35,6 +35,23 @@ function App() {
       body: JSON.stringify(body),})
       .then(res => res.json())}
 
+
+
+    function updateDecision(urlLoc, id){
+    fetch(`'http//:${urlLoc}/:${id}'`, {
+      method: "PATCH",
+      body: JSON.stringify({
+      decided: true
+      }),
+      headers: {
+      "Content-Type": "application/json"
+        }
+      })
+      .then(r => r.json())
+      .then(r => console.log(r))}
+      
+        
+    
   return (
     <BrowserRouter>
       {hasLoggedIn ? <NavBar /> : <div></div>}
@@ -53,11 +70,11 @@ function App() {
         }>
         </Route>
 
-        <Route path="/new" element={<CreateNew createResource={createResource}/>}></Route>
+        <Route path="/new" element={<CreateNew createResource={createResource} />}></Route>
        
-        <Route path="/dec-list" element={<DecisionList fetchResource={fetchResource}/>}></Route>
+        <Route path="/dec-list" element={<DecisionList fetchResource={fetchResource} />}></Route>
        
-        <Route path="/final" element={<FinalDecision />}></Route>
+        <Route path="/final" element={<FinalDecision updateDecision={updateDecision} fetchResource={fetchResource} />}></Route>
        
         <Route path="/list-opt" element={<ListOptions />}></Route>
       
@@ -67,4 +84,3 @@ function App() {
     )
 }
 
-export default App;
