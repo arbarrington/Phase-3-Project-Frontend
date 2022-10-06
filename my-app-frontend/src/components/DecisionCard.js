@@ -17,9 +17,10 @@ export default function DecisionCard({options, decision}) {
     function displayOptions(optionArray) {
         return (
                optionArray.map((option) => {
-                    return (
-                        <label>
-                        <input  
+                    return <div>
+                        <label for="name" className="label-ubc">{option.option_name}</label>
+                        
+                          <input  
                         optID={option.key}
                         decID={decision.id}
                         type="number"
@@ -27,23 +28,23 @@ export default function DecisionCard({options, decision}) {
                         name="answer" 
                         className="radio" 
                         onChange={handleVote}
-                        />{option.option_name}
-                        </label>  
-                    )
-                }) 
-        )
-    }
+                        />
+                        </div>
+                        }))}
+                        
+                        
+                        
         
     return (
         <div className="decisionCard">
             <form>
         <h2 key={decision.id}>Where should {decision.group_name} go for {decision.event_type} on {decision.event_time}?</h2>
             <div className="options">
-            <ul className="optionList">
-                <label>
+            <div className="optionList">
+                <label className="try">
                 { displayOptions(options) }
                 </label>
-            </ul>
+            </div>
             </div>
             <br/>
             </form>

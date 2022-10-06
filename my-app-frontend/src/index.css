@@ -50,3 +50,88 @@ h1{
   width:163px;
 
 }
+
+.nav-bar{
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0.5rem 0rem;
+  background-color:cornflowerblue;
+  color: black;
+  box-shadow: 0 2px 2px 2px rgba(0,0,0,0.06);
+}
+
+.navCN{
+  height: 60px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0.5rem 0rem;
+  background-color:ivory;
+  box-shadow: 0 2px 2px 2px rgba(9, 9, 9, 0.23);
+  text-decoration:double;
+  color: cornflowerblue;
+  font-size: 1.4rem;
+  margin-left: 1rem;
+  border-radius: 26px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  cursor:pointer;
+}
+
+.input-text {
+  width: 600px;
+  height: 50px;
+  background-color:powderblue;
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+#freshCityForm{
+padding-left: 10%;
+padding-right: 10%;
+}
+
+.submit-option{
+  appearance:none;
+  -webkit-appearance:none;
+
+  padding:10px;
+  border:none;
+  background-color:#3F51B5;
+  color:#fff;
+  font-weight:600;
+  border-radius:5px;
+  width:200px;
+  height: 30px;
+  text-align:center;
+  font-size: medium;
+}
+
+
+.label-ubc{
+  margin-right: 2rem;
+}
+.label{
+  height: 20px;
+  padding: 20px;
+}
+
+.radio{
+  background-color:aliceblue;
+  height:10px;
+  width: 26px;
+
+}
+
+.optionList{
+  margin-left: 3%;
+}

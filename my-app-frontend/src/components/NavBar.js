@@ -10,11 +10,11 @@ export default function NavBar(){
 
     return(
         <div className="nav-bar">
-            <Link to="/new">Create New Decision Choice</Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <Link to="/final">See Final Decision</Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <Link to="/dec-list">Decision List</Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <Link to="/list-opt">List Options</Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <Link to="/">Home</Link>
+            <Link className="navCN" to="/new">Create New Decision Choice</Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <Link className="navCN" to="/final">See Final Decision</Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <Link className="navCN" to="/dec-list">Decision List</Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <Link className="navCN" to="/list-opt">List Options</Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <Link className="navCN" to="/">Home</Link>
 
 
         </div>

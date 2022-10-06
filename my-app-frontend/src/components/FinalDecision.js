@@ -7,7 +7,7 @@ import NavBar from "./NavBar";
 
 export default function FinalDecision({updateDecision, fetchResource}){
 
-    (updateDecision('localhost:9292/decision', 1))
+    (updateDecision('localhost:9292/decisions', 1))
     // console.log(fetchResource('http//:localhost9292/decisions'))
 
     return(

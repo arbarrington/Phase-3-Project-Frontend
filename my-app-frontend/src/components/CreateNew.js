@@ -114,24 +114,29 @@ return (
             <input type="text" name="groupName" onChange={handleChange} className="input-text" placeholder="What is your Group's Name?"/>
         </label>
         <br></br>
+        <br/>
         <label>
             <input type="text" name="decisionName" onChange={handleChange} className="input-text" placeholder="What are you Deciding?"/>
         </label>
         <br></br>
+        <br/>
         <label>
             <input type="text" name="eventTime" onChange={handleChange} className="input-text" placeholder="What Time is your Event?"/>
         </label>
         <br></br>
+        <br/>
         <label>
             <input type="text" name="theseOptions" onChange={handleChangeOptions} className="input-text" placeholder="What Options are You Considering?"/>
         </label>
         <br></br>
+        <br/>
         <label>
             <input type="text" name="decisionDeadLine" onChange={handleChange} className="input-text" placeholder="When must the decison be reached?"/>
         </label>
         <br></br>
-        <button type="submit" className="submit">
-            {/* <img src={check} alt="checkmark"/> */}
+
+        <button type="submit" className="submit-option">
+            Honk Honk
         </button>
     </form>
         {/* {cityIsValid ? 
