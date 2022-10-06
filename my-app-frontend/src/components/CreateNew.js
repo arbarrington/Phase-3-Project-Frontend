@@ -15,10 +15,6 @@ const [freshDecision, setFreshDecision] = useState({
 
 const [theseOptions, setTheseOptions] = useState([])
 
-
-const [decID, setDecID] = useState()
-
-
 function handleChange(e) {
     setFreshDecision({
         ...freshDecision, [e.target.name]: e.target.value,
@@ -29,6 +25,7 @@ function handleChangeOptions(e) {
     setTheseOptions(e.target.value
     .split(','));
 }
+
 
 // limit number of options that can be input for a decision
 function optionInputValidation (inputOptions) {
@@ -55,10 +52,13 @@ function dateFormatValidation (inputDate) {
     }
     else {return `DateTime.new(${year}, ${month}, ${date}, ${hour}, ${minute})`}
 }
+
 let postedOptions = []
-theseOptions.forEach(option =>{
+
+theseOptions.forEach(option => {
     postedOptions.push(option)
 })
+
 const postedDecision = {
     event_type: freshDecision.decisionName,
     decided: false,
@@ -66,8 +66,28 @@ const postedDecision = {
     event_time: freshDecision.eventTime,
     decision_deadline: freshDecision.decisionDeadline
 }
+
 let decisionId 
 
+    function handleFreshSubmit(e) {
+        e.preventDefault()
+        fetch("http://localhost:9292/create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(postedDecision)
+            })
+            .then((r) => r.json())
+            .then((postedDecision) => { 
+                decisionId = postedDecision.id
+                console.log('success:', decisionId)
+                test(decisionId)
+            })
+    }
+
+    function test(decisionId) {
+        
  function handleFreshSubmit(e) {
      e.preventDefault()
      console.log(`Option State Array`)
@@ -84,24 +104,27 @@ let decisionId
             console.log('success:', decisionId)
         })
     // }, [])
+
         console.log(decisionId)
-        theseOptions.forEach(entry =>{
-        const option ={
-            option_name: entry,
-            num_votes: 0,
-            decision_id: decisionId,
-            chosen: false
-        }
+        
+        theseOptions.forEach(entry => {
+            const option = {
+                option_name: entry,
+                num_votes: 0,
+                decision_id: decisionId,
+                chosen: false
+            }
 
         createResource("http://localhost:9292/create-options",option)
             .then((option) => { 
                 console.log('success option:', option)
             })
-        // )
-        })
+        
+        }
+    )}
+    
+    
 
-
-   };   
  
 
 
@@ -134,10 +157,6 @@ return (
             {/* <img src={check} alt="checkmark"/> */}
         </button>
     </form>
-        {/* {cityIsValid ? 
-        null : 
-        <p>{thisCity} is not a valid input. Please try again!</p>
-        } */}
     </div>
 </div>
 </React.Fragment>

@@ -26,6 +26,17 @@ export default function DecisionList({username, groupname, matchingDecision, fet
             setUserFullDecision(thingsToSet)
         })
         },[])
+
+    //console.log("some state businet", userFullDecision)
+
+
+
+
+
+
+     
+    // optionArray should be the state variable theseOptions
+    let optionArray = ["option1", "option2", "option3", "option4", "option5"]
   
     // optionArray should be the state variable theseOptions
     let optionArray = [

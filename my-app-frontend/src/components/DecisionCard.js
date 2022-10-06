@@ -26,6 +26,7 @@ export default function DecisionCard({options, decision}) {
                         max={optionArray.length} 
                         name="answer" 
                         className="radio" 
+                        />{option}
                         onChange={handleVote}
                         />{option.option_name}
                         </label>  
