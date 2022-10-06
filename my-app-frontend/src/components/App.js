@@ -26,6 +26,12 @@ function App() {
   // state for determing if logged in or not
   const [hasLoggedIn, setHasLoggedIn] = useState(false)
 
+  // state for getting group name -> used to determine which decisions to render
+  const [currentGroupName, setCurrentGroupName] = useState('')
+
+  // state for a new decision id that gets created
+  const [decId, setDecId] = useState()
+
 
 
 
@@ -38,6 +44,8 @@ function App() {
         <Route path="/" element=
         {<Home 
           onCurrentUser={(newUser)=>setCurrentUser(newUser)}
+          onCurrentGroupName={(newGroupName)=>setCurrentGroupName(newGroupName)}
+          //onCurrentGroupName={(newGroupName)=>executeJointsSequence(newGroupName)}
           onHasLoggedIn={() => setHasLoggedIn(true)}
           hasLoggedIn={hasLoggedIn}
           username={currentUser.username}
@@ -45,7 +53,11 @@ function App() {
         }>
         </Route>
 
-        <Route path="/new" element={<CreateNew />}></Route>
+        <Route path="/new" element=
+          {<CreateNew 
+            onGetDecisionId={(newDecId)=>setDecId(newDecId)}/>
+          }>
+        </Route>
        
         <Route path="/dec-list" element={<DecisionList />}></Route>
        

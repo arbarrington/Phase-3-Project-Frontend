@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 
 
-export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onMatchingDecisions}){
+export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onMatchingDecisions, onCurrentGroupName}){
  
     // state variable for form input data
     const [ userData, setUserData ] = useState({
@@ -25,6 +25,7 @@ useEffect(() => {
     .then((d) => d.json())
     .then((d) => {
         setJointsData(d)
+        console.log(d)
     })
     },[])
 
@@ -44,7 +45,7 @@ useEffect(() => {
         num_decisions_made: 0
     }
 
-    // post ome shit
+    // post the user who just logged in
     fetch("http://localhost:9292/users", {
         method: "POST",
         headers: {
@@ -57,19 +58,21 @@ useEffect(() => {
             onThisUserID(postedUser.id)
         })
 
+        onCurrentGroupName(userData.groupname)
         onCurrentUser(userData)
         onHasLoggedIn()
 
         // execute extract decisions sequence
-        extractDecisionSequence(postedUser.id)     
+        extractDecisionSequence(userData.groupname)     
 
         document.getElementById("login-form").reset();
    };
 
    // make sure to change num to userID
-    function extractDecisionSequence(userID) {
+    function extractDecisionSequence(postedGroupName) {
         let idArray = []
-        jointsData.filter(row => row.user_id==3).forEach((row) => {
+        console.log(postedGroupName)
+        jointsData.filter(row => row.group_name==postedGroupName).forEach((row) => {
             allDecisions.forEach((entry) => {
                 if (row.decision_id == entry.id && !idArray.includes(entry.id)) {
                     idArray.push(entry.id)
@@ -77,6 +80,7 @@ useEffect(() => {
             })
         })
         onMatchingDecisions(idArray)
+        console.log(idArray)
     }
      
   return (

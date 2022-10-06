@@ -139,10 +139,6 @@ return (
             {/* <img src={check} alt="checkmark"/> */}
         </button>
     </form>
-        {/* {cityIsValid ? 
-        null : 
-        <p>{thisCity} is not a valid input. Please try again!</p>
-        } */}
     </div>
 </div>
 </React.Fragment>
@@ -153,11 +149,3 @@ return (
 
     
 }
-
-
-
-
-// console.log(`Option State Array`)
-// console.log("options",theseOptions)
-// console.log(`Create Decisions Array`)
-// console.log(freshDecision)
