@@ -7,8 +7,8 @@ import NavBar from "./NavBar";
 
 export default function FinalDecision({updateDecision, fetchResource}){
 
-    console.log(updateDecision('localhost:9292/decision', 3))
-    console.log(fetchResource('http//:localhost9292/decisions'))
+    (updateDecision('localhost:9292/decision', 1))
+    // console.log(fetchResource('http//:localhost9292/decisions'))
 
     return(
 <div className="final-decision">final decision Time

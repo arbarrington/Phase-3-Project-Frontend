@@ -38,7 +38,7 @@ export default function App() {
 
 
     function updateDecision(urlLoc, id){
-    fetch(`'http//:${urlLoc}/:${id}'`, {
+    fetch(`'http//:${urlLoc}/${id}'`, {
       method: "PATCH",
       body: JSON.stringify({
       decided: true
