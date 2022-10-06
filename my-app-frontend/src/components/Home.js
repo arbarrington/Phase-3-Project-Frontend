@@ -3,7 +3,11 @@ import DecisionList from "./DecisionList";
 import Login from "./Login";
 import Fetchs from "./Fetchs";
 
+<<<<<<< HEAD
 export default function Home({ onCurrentUser, onHasLoggedIn, username, groupname, hasLoggedIn, fetchResource, createResource }){
+=======
+export default function Home({ onCurrentUser, onHasLoggedIn, username, groupname, hasLoggedIn, onCurrentGroupName }){
+>>>>>>> quick-test
 
     const [matchingDecision, setMatchingDecision] = useState([])
     const [thisUserID, setThisUserID] = useState()
@@ -26,6 +30,7 @@ export default function Home({ onCurrentUser, onHasLoggedIn, username, groupname
                 onCurrentUser={onCurrentUser}
                 onHasLoggedIn={onHasLoggedIn}
                 onThisUserID={(newUserID)=>setThisUserID(newUserID)}
+                onCurrentGroupName={onCurrentGroupName}
                 onMatchingDecisions={(newMatchingDecision) => setMatchingDecision([...matchingDecision, ...newMatchingDecision])}
             />}
         </div>

@@ -28,6 +28,13 @@ function App() {
 
   function fetchResource(url){
     return fetch(url).then(res => res.json())}
+    
+  // state for getting group name -> used to determine which decisions to render
+  const [currentGroupName, setCurrentGroupName] = useState('')
+
+  // state for a new decision id that gets created
+  const [decId, setDecId] = useState()
+
 
     function createResource(url, body){
       return fetch(url,{method: 'POST',
@@ -44,6 +51,8 @@ function App() {
         <Route path="/" element=
         {<Home 
           onCurrentUser={(newUser)=>setCurrentUser(newUser)}
+          onCurrentGroupName={(newGroupName)=>setCurrentGroupName(newGroupName)}
+          //onCurrentGroupName={(newGroupName)=>executeJointsSequence(newGroupName)}
           onHasLoggedIn={() => setHasLoggedIn(true)}
           hasLoggedIn={hasLoggedIn}
           username={currentUser.username}
@@ -53,7 +62,11 @@ function App() {
         }>
         </Route>
 
-        <Route path="/new" element={<CreateNew createResource={createResource}/>}></Route>
+        <Route path="/new" element=
+          {<CreateNew 
+            onGetDecisionId={(newDecId)=>setDecId(newDecId)}/>
+          }>
+        </Route>
        
         <Route path="/dec-list" element={<DecisionList fetchResource={fetchResource}/>}></Route>
        
