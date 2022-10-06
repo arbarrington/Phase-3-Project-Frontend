@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 
 
-export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onMatchingDecisions}){
+export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onMatchingDecisions, fetchResource, createResource}){
  
     // state variable for form input data
     const [ userData, setUserData ] = useState({
@@ -13,16 +13,14 @@ export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onMat
     const [jointsData, setJointsData] = useState([])
 
 useEffect(() => {
-    fetch('http://localhost:9292/decisions')
-    .then((d) => d.json())
+    fetchResource('http://localhost:9292/decisions')
     .then((d) => {
         setAllDecisions(d)
     })
     },[])
 
 useEffect(() => {
-    fetch('http://localhost:9292/joints')
-    .then((d) => d.json())
+    fetchResource('http://localhost:9292/joints')
     .then((d) => {
         setJointsData(d)
     })
@@ -45,14 +43,7 @@ useEffect(() => {
     }
 
     // post ome shit
-    fetch("http://localhost:9292/users", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(postedUser)
-        })
-        .then((r) => r.json())
+    createResource("http://localhost:9292/users", postedUser)
         .then((postedUser) => { 
             onThisUserID(postedUser.id)
         })

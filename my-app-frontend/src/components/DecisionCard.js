@@ -1,9 +1,9 @@
 
 import React, {useState} from "react";
-import { Form } from "react-router-dom";
+// import { Form } from "react-router-dom";
 
 export default function DecisionCard({options, decision}) {
-  
+    
 
     //check yo date
 
@@ -12,6 +12,8 @@ export default function DecisionCard({options, decision}) {
 
         return formattedDate
     }
+
+    
 
 
     function displayOptions(optionArray) {

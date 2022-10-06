@@ -2,7 +2,7 @@
 
 import React, {useState, useEffect} from "react";
 
-export default function CreateNew(){
+export default function CreateNew({createResource}){
 
 const [freshDecision, setFreshDecision] = useState({
     decisionName: '',
@@ -70,14 +70,8 @@ let decisionId
      console.log(freshDecision)
 
     // useEffect(()=>{
-    fetch("http://localhost:9292/create", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(postedDecision)
-        })
-        .then((r) => r.json())
+
+    createResource("http://localhost:9292/create",postedDecision)
         .then((postedDecision) => { 
           decisionId = postedDecision.id
         setDecID(postedDecision.id)
@@ -93,14 +87,7 @@ let decisionId
             chosen: false
         }
 
-        fetch("http://localhost:9292/create-options", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(option)
-            })
-            .then((r) => r.json())
+        createResource("http://localhost:9292/create-options",option)
             .then((option) => { 
                 console.log('success option:', option)
             })

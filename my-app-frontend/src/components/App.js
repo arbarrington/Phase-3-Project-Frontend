@@ -26,8 +26,14 @@ function App() {
   // state for determing if logged in or not
   const [hasLoggedIn, setHasLoggedIn] = useState(false)
 
+  function fetchResource(url){
+    return fetch(url).then(res => res.json())}
 
-
+    function createResource(url, body){
+      return fetch(url,{method: 'POST',
+      headers: {'Content-Type': 'application/json',},
+      body: JSON.stringify(body),})
+      .then(res => res.json())}
 
   return (
     <BrowserRouter>
@@ -41,13 +47,15 @@ function App() {
           onHasLoggedIn={() => setHasLoggedIn(true)}
           hasLoggedIn={hasLoggedIn}
           username={currentUser.username}
-          groupname={currentUser.groupname}/>
+          groupname={currentUser.groupname}
+          createResource={createResource}
+          fetchResource={fetchResource}/>
         }>
         </Route>
 
-        <Route path="/new" element={<CreateNew />}></Route>
+        <Route path="/new" element={<CreateNew createResource={createResource}/>}></Route>
        
-        <Route path="/dec-list" element={<DecisionList />}></Route>
+        <Route path="/dec-list" element={<DecisionList fetchResource={fetchResource}/>}></Route>
        
         <Route path="/final" element={<FinalDecision />}></Route>
        
