@@ -29,12 +29,15 @@ function App() {
   function fetchResource(url){
     return fetch(url).then(res => res.json())}
     
+
   // state for getting group name -> used to determine which decisions to render
   const [currentGroupName, setCurrentGroupName] = useState('')
 
   // state for a new decision id that gets created
   const [decId, setDecId] = useState()
 
+  // function fetchResource(url){
+  //   return fetch(url).then(res => res.json())}
 
     function createResource(url, body){
       return fetch(url,{method: 'POST',
@@ -67,6 +70,8 @@ function App() {
             onGetDecisionId={(newDecId)=>setDecId(newDecId)}/>
           }>
         </Route>
+        
+        {/* //<Route path="/new" element={<CreateNew createResource={createResource}/>}></Route> */}
        
         <Route path="/dec-list" element={<DecisionList fetchResource={fetchResource}/>}></Route>
        

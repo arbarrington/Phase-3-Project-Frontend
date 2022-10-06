@@ -27,11 +27,17 @@ export default function DecisionCard({options, decision}) {
                         name="answer" 
                         className="radio" 
 <<<<<<< HEAD
+<<<<<<< HEAD
                         onChange={handleVote}
                         />{option.option_name}
 =======
                         />{option}
 >>>>>>> quick-test
+=======
+                        />{option}
+                        onChange={handleVote}
+                        />{option.option_name}
+>>>>>>> cc2d12bf3d9f90f8948a65462089038ca81a8433
                         </label>  
                     )
                 }) 

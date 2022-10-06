@@ -44,6 +44,7 @@ useEffect(() => {
 
     // post user
     // createResource("http://localhost:9292/users", postedUser)
+
     // post the user who just logged in
     fetch("http://localhost:9292/users", {
         method: "POST",
@@ -53,9 +54,12 @@ useEffect(() => {
         body: JSON.stringify(postedUser)
         })
         .then((r) => r.json())
-        .then((postedUser) => { 
-            onThisUserID(postedUser.id)
-        })
+
+    // post user
+    // createResource("http://localhost:9292/users", postedUser)
+    //     .then((postedUser) => { 
+    //         onThisUserID(postedUser.id)
+    //     })
 
         onCurrentGroupName(userData.groupname)
         onCurrentUser(userData)

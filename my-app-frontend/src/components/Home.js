@@ -3,11 +3,8 @@ import DecisionList from "./DecisionList";
 import Login from "./Login";
 import Fetchs from "./Fetchs";
 
-<<<<<<< HEAD
-export default function Home({ onCurrentUser, onHasLoggedIn, username, groupname, hasLoggedIn, fetchResource, createResource }){
-=======
-export default function Home({ onCurrentUser, onHasLoggedIn, username, groupname, hasLoggedIn, onCurrentGroupName }){
->>>>>>> quick-test
+
+export default function Home({ onCurrentUser, onHasLoggedIn, username, groupname, hasLoggedIn, onCurrentGroupName, fetchResource, createResource }){
 
     const [matchingDecision, setMatchingDecision] = useState([])
     const [thisUserID, setThisUserID] = useState()

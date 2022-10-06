@@ -27,6 +27,10 @@ function handleChangeOptions(e) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> cc2d12bf3d9f90f8948a65462089038ca81a8433
 // limit number of options that can be input for a decision
 function optionInputValidation (inputOptions) {
     if (inputOptions.split(',').length > 4 || inputOptions.split(',').length <2)
@@ -34,8 +38,11 @@ function optionInputValidation (inputOptions) {
 }
 
 
+<<<<<<< HEAD
 =======
 >>>>>>> quick-test
+=======
+>>>>>>> cc2d12bf3d9f90f8948a65462089038ca81a8433
 // MM/DD HH:MM
 function dateFormatValidation (inputDate) {
     let year = new Date().getFullYear()
@@ -72,6 +79,7 @@ const postedDecision = {
 let decisionId 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
  function handleFreshSubmit(e) {
      e.preventDefault()
      console.log(`Option State Array`)
@@ -89,6 +97,8 @@ let decisionId
         })
     // }, [])
 =======
+=======
+>>>>>>> cc2d12bf3d9f90f8948a65462089038ca81a8433
     function handleFreshSubmit(e) {
         e.preventDefault()
         fetch("http://localhost:9292/create", {
@@ -108,7 +118,27 @@ let decisionId
 
     function test(decisionId) {
         
+<<<<<<< HEAD
 >>>>>>> quick-test
+=======
+ function handleFreshSubmit(e) {
+     e.preventDefault()
+     console.log(`Option State Array`)
+     console.log("options",theseOptions)
+     console.log(`Create Decisions Array`)
+     console.log(freshDecision)
+
+    // useEffect(()=>{
+
+    createResource("http://localhost:9292/create",postedDecision)
+        .then((postedDecision) => { 
+          decisionId = postedDecision.id
+        setDecID(postedDecision.id)
+            console.log('success:', decisionId)
+        })
+    // }, [])
+
+>>>>>>> cc2d12bf3d9f90f8948a65462089038ca81a8433
         console.log(decisionId)
         
         theseOptions.forEach(entry => {
