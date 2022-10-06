@@ -26,17 +26,35 @@ export default function DecisionList({username, groupname, matchingDecision, fet
             setUserFullDecision(thingsToSet)
         })
         },[])
-
-    console.log("some state businet", userFullDecision)
-
-
-    
-
-
- 
-     
+  
     // optionArray should be the state variable theseOptions
-    let optionArray = ["option1", "option2", "option3", "option4", "option5"]
+    let optionArray = [
+        {
+        key: 1,
+        option_name: "opt1",
+        num_votes: 0,
+        decision_id: 1,
+        chosen: false 
+        },{
+        key: 2,
+        option_name: "opt2",
+        num_votes: 0,
+        decision_id: 1,
+        chosen: false 
+        },{
+        key: 3,
+        option_name: "opt3",
+        num_votes: 0,
+        decision_id: 1,
+        chosen: false 
+        },{
+        key: 4,
+        option_name: "opt4",
+        num_votes: 0,
+        decision_id: 1,
+        chosen: false 
+        }
+         ]
     let decision = [{
         id: 7,
         event_type: "Outdoor",
@@ -44,8 +62,7 @@ export default function DecisionList({username, groupname, matchingDecision, fet
         group_name: "Austin",
         event_time: "DateTime.new(2022, 10, 16, 7, 30)",
         decision_deadline: "DateTime.new(2022, 10, 15, 23, 59"
-        },
-        {
+        },{
         id: 8,
         event_type: "Happy Hour",
         decided: false,
@@ -54,7 +71,6 @@ export default function DecisionList({username, groupname, matchingDecision, fet
         decision_deadline: "DateTime.new(2022, 10, 15, 23, 59"
             }]
 
-  
     return(
         <div>
             {

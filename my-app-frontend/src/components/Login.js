@@ -36,13 +36,12 @@ useEffect(() => {
   // once submit their name, posts their username//id//groupname to the backend
   function handleSubmit(e) {
     e.preventDefault();
-
     const postedUser = {
         username: userData.username,
         num_decisions_made: 0
     }
 
-    // post ome shit
+    // post user
     createResource("http://localhost:9292/users", postedUser)
         .then((postedUser) => { 
             onThisUserID(postedUser.id)
