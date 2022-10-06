@@ -39,7 +39,7 @@ export default function DecisionCard({options, decision}) {
     return (
         <div className="decisionCard">
             <form>
-        <h2 key={decision.id}>Where should {decision.group_name} go for {decision.event_type} on {rubyDateToMMDDHHMM(decision.event_time)}?</h2>
+        <h2 key={decision.id}>Where should {decision.group_name} go for {decision.event_type} on {decision.event_time}?</h2>
             <div className="options">
             <ul className="optionList">
                 <label>
