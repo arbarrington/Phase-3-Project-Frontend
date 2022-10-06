@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 
 
-export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onMatchingDecisions, fetchResource, createResource, onCurrentGroupName}){
+export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onMatchingDecisions, onCurrentGroupName}){
  
     // state variable for form input data
     const [ userData, setUserData ] = useState({
@@ -12,19 +12,21 @@ export default function Login({onCurrentUser, onHasLoggedIn, onThisUserID, onMat
     const [allDecisions, setAllDecisions] = useState([])
     const [jointsData, setJointsData] = useState([])
 
-useEffect(() => {
-    fetchResource('http://localhost:9292/decisions')
-    .then((d) => {
-        setAllDecisions(d)
-    })
+    useEffect(() => {
+        fetch('http://localhost:9292/decisions')
+            .then(d => d.json())
+            .then((d) => {
+                setAllDecisions(d)
+            })
     },[])
 
-useEffect(() => {
-    fetchResource('http://localhost:9292/joints')
-    .then((d) => {
-        setJointsData(d)
-        console.log(d)
-    })
+    useEffect(() => {
+        fetch('http://localhost:9292/joints')
+            .then(d => d.json())
+            .then((d) => {
+                setJointsData(d)
+                console.log(d)
+        })
     },[])
 
   // updating the user's input as they type...
@@ -42,9 +44,6 @@ useEffect(() => {
         num_decisions_made: 0
     }
 
-    // post user
-    // createResource("http://localhost:9292/users", postedUser)
-
     // post the user who just logged in
     fetch("http://localhost:9292/users", {
         method: "POST",
@@ -54,12 +53,7 @@ useEffect(() => {
         body: JSON.stringify(postedUser)
         })
         .then((r) => r.json())
-
-    // post user
-    // createResource("http://localhost:9292/users", postedUser)
-    //     .then((postedUser) => { 
-    //         onThisUserID(postedUser.id)
-    //     })
+        .then((r) => console.log(r))
 
         onCurrentGroupName(userData.groupname)
         onCurrentUser(userData)

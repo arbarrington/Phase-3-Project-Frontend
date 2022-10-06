@@ -2,7 +2,7 @@
 
 import React, {useState, useEffect} from "react";
 
-export default function CreateNew({createResource}){
+export default function CreateNew(onGetDecisionId){
 
 const [freshDecision, setFreshDecision] = useState({
     decisionName: '',
@@ -26,23 +26,6 @@ function handleChangeOptions(e) {
     .split(','));
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> cc2d12bf3d9f90f8948a65462089038ca81a8433
-// limit number of options that can be input for a decision
-function optionInputValidation (inputOptions) {
-    if (inputOptions.split(',').length > 4 || inputOptions.split(',').length <2)
-        return false;
-}
-
-
-<<<<<<< HEAD
-=======
->>>>>>> quick-test
-=======
->>>>>>> cc2d12bf3d9f90f8948a65462089038ca81a8433
 // MM/DD HH:MM
 function dateFormatValidation (inputDate) {
     let year = new Date().getFullYear()
@@ -76,29 +59,7 @@ const postedDecision = {
     decision_deadline: freshDecision.decisionDeadline
 }
 
-let decisionId 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
- function handleFreshSubmit(e) {
-     e.preventDefault()
-     console.log(`Option State Array`)
-     console.log("options",theseOptions)
-     console.log(`Create Decisions Array`)
-     console.log(freshDecision)
-
-    // useEffect(()=>{
-
-    createResource("http://localhost:9292/create",postedDecision)
-        .then((postedDecision) => { 
-          decisionId = postedDecision.id
-        setDecID(postedDecision.id)
-            console.log('success:', decisionId)
-        })
-    // }, [])
-=======
-=======
->>>>>>> cc2d12bf3d9f90f8948a65462089038ca81a8433
     function handleFreshSubmit(e) {
         e.preventDefault()
         fetch("http://localhost:9292/create", {
@@ -110,35 +71,14 @@ let decisionId
             })
             .then((r) => r.json())
             .then((postedDecision) => { 
-                decisionId = postedDecision.id
-                console.log('success:', decisionId)
-                test(decisionId)
+                //console.log('success:', decisionId)
+                //test(decisionId)
+                //onGetDecisionId(decisionId)
             })
     }
 
     function test(decisionId) {
         
-<<<<<<< HEAD
->>>>>>> quick-test
-=======
- function handleFreshSubmit(e) {
-     e.preventDefault()
-     console.log(`Option State Array`)
-     console.log("options",theseOptions)
-     console.log(`Create Decisions Array`)
-     console.log(freshDecision)
-
-    // useEffect(()=>{
-
-    createResource("http://localhost:9292/create",postedDecision)
-        .then((postedDecision) => { 
-          decisionId = postedDecision.id
-        setDecID(postedDecision.id)
-            console.log('success:', decisionId)
-        })
-    // }, [])
-
->>>>>>> cc2d12bf3d9f90f8948a65462089038ca81a8433
         console.log(decisionId)
         
         theseOptions.forEach(entry => {
@@ -149,13 +89,44 @@ let decisionId
                 chosen: false
             }
 
-        createResource("http://localhost:9292/create-options",option)
+        fetch("http://localhost:9292/create-options", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(option)
+            })
+            .then((r) => r.json())
             .then((option) => { 
                 console.log('success option:', option)
             })
         
         }
     )}
+
+    function executeJointsSequence(newGroupName) {
+
+        let thingToString = {
+          decision_id: 1,
+          user_id: 3
+        }
+      
+        console.log('current group:',newGroupName)
+        //console.log('current user:',currentUser)
+        //console.log('current dec id:', decId)
+      
+        fetch("http://localhost:9292/create-joints", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify(thingToString)
+          })
+          .then((r) => r.json())
+          .then((thingToString) => { 
+              console.log('hey yall')
+          })
+        }
     
     
 
