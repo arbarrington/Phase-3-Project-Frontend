@@ -64,6 +64,7 @@ function handleFreshSubmit(e) {
         .then((postedDecision) => { 
             postOptions(postedDecision.id)
             executeJointsSequence(postedDecision.id)
+            console.log('success!', postedDecision)
         })
 
     // reset the form
@@ -100,6 +101,9 @@ function postOptions(decisionId) {
             body: JSON.stringify(option)
             })
             .then((r) => r.json())
+            .then((r) => {
+                console.log('success!', r)
+            })
         }
     )
 }
@@ -121,6 +125,9 @@ function executeJointsSequence(decisionID) {
         body: JSON.stringify(thingToString)
         })
         .then((r) => r.json())
+        .then((r) => {
+            console.log('success!', r)
+        })
 
 }
 

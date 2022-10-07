@@ -28,15 +28,15 @@ export default function Login({ onCurrentGroup, onSetIsLoggedIn, isLoggedIn, onD
 
     // post the user who just logged in
     // THIS POST IS BROKEN
-    // fetch("http://localhost:9292/users", {
-    //     method: "POST",
-    //     headers: {
-    //         "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify(postedUser)
-    //     })
-    //     .then((r) => r.json())
-
+    fetch("http://localhost:9292/users", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(postedUser)
+        })
+        .then((r) => r.json())
+ 
         onCurrentGroup(userData.groupname)
         onDetDecs(userData.groupname)
         
