@@ -70,9 +70,6 @@ function handleFreshSubmit(e) {
     // reset the form
     document.getElementById("freshCityForm").reset();
 
-    // call a function in app that triggers a refetch of all decions, options, and joins
-    onReFetch()
-
 }
 
 // posts the optoins into the db
@@ -127,6 +124,8 @@ function executeJointsSequence(decisionID) {
         .then((r) => r.json())
         .then((r) => {
             console.log('success!', r)
+            // call a function in app that triggers a refetch of all decions, options, and joins
+            onReFetch()
         })
 
 }

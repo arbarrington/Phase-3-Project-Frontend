@@ -113,12 +113,9 @@ function App() {
     .then((d) => setAllJoints(d))
 
     // refire the mathcing sequence with the fresh data just fetched
+    console.log('current group from refetch', currentGroup)
     handleDetDecs(currentGroup)
   }
-
-
-
-
 
   return (
     <BrowserRouter>
