@@ -19,10 +19,27 @@ export default function DecisionCard({options, decision, currentGroup, handleDel
     },[])
 
     function handlePatch(opt) {
-        console.log(opt)  
+        
         setChosenOpt(() => opt)
         setThisDecOpen(() => false)
-        console.log(chosenOpt)
+
+        // need to figure out how to get right dec causse it's in an individsual card but they're all rendered
+        const optPatch = {
+            option_name: opt.option_name,
+            num_votes: 1,
+            decision_id: opt.decion_id,
+            chosen: true
+        }
+
+        fetch(`http://localhost:9292/option/${opt.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(optPatch)
+        })
+
+
     }
 
     // each optoin gets rendered as a button but I was too lazy to add any functinality to the buttons!
