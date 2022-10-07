@@ -36,7 +36,7 @@ export default function DecisionCard({options, decision, currentGroup}) {
                     )}
                 </div>
             :
-            <p>this decion doesn't have any options!</p>
+            <p>{decision.event_type} doesn't have any options!</p>
             }
         </div>
     );

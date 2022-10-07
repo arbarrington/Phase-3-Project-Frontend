@@ -178,3 +178,12 @@ export default function renderOpenDecisionCard({}){
     //             })
     //     )
     // }
+
+
+
+
+      // // states of decId, options for if a new deicion is posted
+  // const [newDecId, setNewDecId] = useState()
+  // const [newOpts, setNewOpts] = useState([])
+
+         //   {/* <input id="submitdecision" type="submit" value="Submit!" /> */}

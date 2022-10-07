@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 
 
-export default function Login({ onCurrentGroup, onSetIsLoggedIn, isLoggedIn, onLoggedIn }){
+export default function Login({ onCurrentGroup, onSetIsLoggedIn, isLoggedIn, onDetDecs }){
 
     // state variable for form input data
     const [ userData, setUserData ] = useState({
@@ -38,7 +38,7 @@ export default function Login({ onCurrentGroup, onSetIsLoggedIn, isLoggedIn, onL
     //     .then((r) => r.json())
 
         onCurrentGroup(userData.groupname)
-        onLoggedIn(userData.groupname)
+        onDetDecs(userData.groupname)
         
         onSetIsLoggedIn()
 

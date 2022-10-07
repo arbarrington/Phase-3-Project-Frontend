@@ -50,7 +50,7 @@ function App() {
 
 
   // this sequence of functions fires once a user logs in to update state to reflect thata groups decions and options
-  function handleIsLoggedIn(newGroup) {
+  function handleDetDecs(newGroup) {
     // looking through all of the joints to extract decion ids that correspond to the current group name
     let matchingDecIds =[]
     allJoints.forEach((joint) => {
@@ -90,9 +90,6 @@ function App() {
       setGroupOpts(matchingOptions)
   }
 
-
-
-
   return (
     <BrowserRouter>
       
@@ -105,17 +102,16 @@ function App() {
             onCurrentGroup={(newGroup)=>setCurrentGroup(newGroup)}
             onSetIsLoggedIn={()=>setIsLoggedIn(true)}
             isLoggedIn={isLoggedIn}
-            onLoggedIn={(newGroup)=>handleIsLoggedIn(newGroup)}
+            onDetDecs={(newGroup)=>handleDetDecs(newGroup)}
           />
         }>
         </Route>
 
         <Route path="/new" element={
           <CreateNew 
-            // onGetDecisionId={(newDecId)=>setDecId(newDecId)}
-            // onCreatedOptions={(newOptions)=>setCreatedOptions([...createdOptions, newOptions])}
-            // onSetRerender={()=>setReRender(true)}
-            />
+            currentGroup={currentGroup}
+            onDetDecs={(newGroup)=>handleDetDecs(newGroup)}
+          />
           }>
         </Route>
        

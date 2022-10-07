@@ -1,7 +1,10 @@
 import React, {useState, useEffect} from "react";
 
-
-export default function CreateNew({onGetDecisionId, onCreatedOptions, onSetRerender }){
+// this function takes in currentGroup that is defined from the user "login" so that it
+// can call the function sequence that matches up decions and optoins to whatever group the current user is
+// currelnty logged into.  cause without calling that function sequence, the new option (if it is for this group) will not
+// show up on decion list unless the user refreshes the page and sings back in!
+export default function CreateNew({ currentGroup, onDetDecs }){
 
 // state for keeping track of user inputted decions
 const [freshDecision, setFreshDecision] = useState({
@@ -29,12 +32,13 @@ function handleChangeOptions(e) {
     .split(','));
 }
 
-
+// pushing options that the user creates into an array
 let postedOptions = []
 theseOptions.forEach(option => {
     postedOptions.push(option)
 })
 
+// making the decion state var into a constant - seems to post better like this
 const postedDecision = {
     event_type: freshDecision.decisionName,
     decided: false,
@@ -43,10 +47,12 @@ const postedDecision = {
     decision_deadline: null
 }
 
-
+// once a new decion is subitted, this sick function fires off
 function handleFreshSubmit(e) {
     
     e.preventDefault()
+
+    // post the new decion
     fetch("http://localhost:9292/create", {
         method: "POST",
         headers: {
@@ -56,20 +62,26 @@ function handleFreshSubmit(e) {
         })
         .then((r) => r.json())
         .then((postedDecision) => { 
-            console.log('success:', postedDecision.id)
             postOptions(postedDecision.id)
             executeJointsSequence(postedDecision.id)
-            onGetDecisionId(postedDecision.id)
-
         })
 
+    // reset the form
     document.getElementById("freshCityForm").reset();
+
+    // call the decion matching function in app so it updates the matching decions for the current user's session
+    onDetDecs(currentGroup)
+
 }
 
+// posts the optoins into the db
+// sep function so that it can get the new decID from the previous post request (this function is called in a .then)
 function postOptions(decisionId) {
 
+    // state is a bitch so we're using some good ol fasioned arrays
+    // need to do this sequence for EACH option provided
+    // options must be seperated by a ", "
     let cheaterOptArray = []
-    
     theseOptions.forEach(entry => {
         const option = {
             option_name: entry,
@@ -88,25 +100,18 @@ function postOptions(decisionId) {
             body: JSON.stringify(option)
             })
             .then((r) => r.json())
-            .then((option) => { 
-                console.log('success option:', option)
-            })
-        
         }
     )
-    onCreatedOptions(cheaterOptArray)
 }
 
-
+// this function fills out the joins table for the new decion and what group it belongs to
+// like the last function, it is called in a .then of posting the decion so that it has access to the new decision's id
 function executeJointsSequence(decisionID) {
 
     let thingToString = {
         decision_id: decisionID,
         group_name: freshDecision.groupName
     }
-    
-    console.log('current group:', freshDecision.groupName)
-    console.log('current dec id:', decisionID)
     
     fetch("http://localhost:9292/create-joints", {
         method: "POST",
@@ -116,9 +121,7 @@ function executeJointsSequence(decisionID) {
         body: JSON.stringify(thingToString)
         })
         .then((r) => r.json())
-        .then((thingToString) => { 
-            //console.log('hey yall')
-        })
+
 }
 
 
