@@ -134,6 +134,7 @@ function executeJointsSequence(decisionID) {
 return (
 <React.Fragment>
     <div>
+    <h1>Create Some New Decions!</h1>
     <div className="form-container">
         <form onSubmit={handleFreshSubmit} id='freshCityForm'>
             <label>

@@ -15,6 +15,9 @@ export default function DecisionList({groupDecs, currentGroup, groupOpts }){
             },
             body: JSON.stringify(dec)
         })
+
+        document.getElementById('decDiv'+dec.id).remove()
+
     }
 
 
@@ -27,7 +30,7 @@ return (
         {groupDecs.length > 0 ?
             <div>
                 {groupDecs.map((dec) => 
-                    <div key={uuid()}>
+                    <div key={uuid()} id={'decDiv'+dec.id}>
                         <DecisionCard 
                             options={groupOpts} 
                             decision={dec} 
@@ -42,7 +45,3 @@ return (
     </div>
 )
 }
-
-// console.log('decs inside declist', groupDecs)
-// console.log('opts inside declist', groupOpts)
-// console.log('group inside declist', currentGroup)

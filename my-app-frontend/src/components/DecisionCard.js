@@ -48,8 +48,9 @@ export default function DecisionCard({options, decision, currentGroup, handleDel
     // also maybe a terenary to change the rendering if the decided value of decion is true
 
     return (
+        <div>
         <div className="decisionCard">
-            {thisDecOpen > 0 ?
+            {thisDecOpen ?
                 <div>
                     <p>Vote on {decision.event_type} for {currentGroup} </p>
                     {thisDecOpts.map((opt) => 
@@ -74,6 +75,7 @@ export default function DecisionCard({options, decision, currentGroup, handleDel
             </p>
              
             }
+        </div>
         </div>
     );
 }
