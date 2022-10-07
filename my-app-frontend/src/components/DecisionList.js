@@ -3,80 +3,29 @@ import DecisionCard from "./DecisionCard";
 import {v4 as uuid} from "uuid";
 
 
-export default function DecisionList({username, groupname, matchingDecision, createdOptions }){
+// export default function DecisionList({allDecs, currentGroup, allOpts, allJoints}){
+export default function DecisionList({groupDecs, currentGroup, groupOpts }){
 
-    const [userFullDecision, setUserFullDecision] = useState([])
-    const [decOptions, setDecOptions] = useState([])
-    
-    const [rerender, setReRender] = useState(false)
+// like the filtering for matching decions logic probs should live here and I tried to do that but state was making it a bitch so
+// i pushed it all up to app so that the state would be updated by the time it got here
 
-    useEffect(() => {
-        let thingsToSet = []
-        fetch('http://localhost:9292/decisions')
-            .then(d => d.json())
-            .then((d) => {
-                matchingDecision.forEach((id_num) => {
-                    d.forEach((entry) => {
-                        if (entry.id == id_num) {
-                            thingsToSet.push(entry)
-                        }
-                })
-            })
-            setUserFullDecision(thingsToSet)
-        })
-        },[rerender])
-
-
-    useEffect(() => {
-        let thingsToSet = []
-        fetch('http://localhost:9292/options')
-            .then(d => d.json())
-            .then((d) => {
-                matchingDecision.forEach((id_num) => {
-                    d.forEach((entry) => {
-                        if (entry.id == id_num) {
-                            thingsToSet.push(entry)
-                        }
-                        // once state filled, render the cards
-                        // then reset state
-                })
-            })
-            setDecOptions(thingsToSet)
-        })
-        },[rerender])
-
-
-    console.log('decion list group name', groupname)
-    console.log("some state businet", userFullDecision)
-    // console.log('matching decion ids', matchingDecision)
-    // console.log('created options', createdOptions)
-    // console.log('options that already exist and match', decOptions)
-
-
-    // options to render only exists when some options are created in create new
-    // let optionsToRender
-
-    // createdOptions.forEach(element =>
-    //     optionsToRender.push(element)
-    // )
-
-    // console.log(optionsToRender)
-
-
-
-
-
-
-
-
-return(
+return (
     <div>
-        {
-        userFullDecision.map((d) => {
-           return( <DecisionCard key={uuid()} options={decOptions} decision={d}/> )
-        })
+        {groupDecs.length > 0 ?
+            <div>
+                {groupDecs.map((dec) => 
+                    <div key={uuid()}>
+                        <DecisionCard options={groupOpts} decision={dec} currentGroup={currentGroup}/>
+                    </div>
+                )}
+            </div>
+        :
+        <p>add some decions to decide on for your group!</p>
         }
-        <input id="submitdecision" type="submit" value="Submit!" />
     </div>
 )
 }
+
+// console.log('decs inside declist', groupDecs)
+// console.log('opts inside declist', groupOpts)
+// console.log('group inside declist', currentGroup)

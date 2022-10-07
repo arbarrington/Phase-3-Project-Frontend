@@ -1,6 +1,10 @@
 import React, {useState, useEffect} from "react";
-import {useNavigate} from "react-router-dom";
-export default function CreateNew({onGetDecisionId, onCreatedOptions, onSetRerender }){
+
+// this function takes in currentGroup that is defined from the user "login" so that it
+// can call the function sequence that matches up decions and optoins to whatever group the current user is
+// currelnty logged into.  cause without calling that function sequence, the new option (if it is for this group) will not
+// show up on decion list unless the user refreshes the page and sings back in!
+export default function CreateNew({ onReFetch }){
 
 // state for keeping track of user inputted decions
 const [freshDecision, setFreshDecision] = useState({
@@ -11,7 +15,6 @@ const [freshDecision, setFreshDecision] = useState({
     eventTime: '',
     decisionDeadline: ''
 })
-const navigate = useNavigate()
 
 // state for keeping track of user inputted options
 const [theseOptions, setTheseOptions] = useState([])
@@ -29,42 +32,27 @@ function handleChangeOptions(e) {
     .split(','));
 }
 
-// MM/DD HH:MM
-function dateFormatValidation (inputDate) {
-    let year = new Date().getFullYear()
-    let month = inputDate.substring(0,2).parseInt()
-    let date = inputDate.substring(3,5).parseInt()
-    let hour = inputDate.substring(6,8).parseInt()
-    let minute = inputDate.substring(9,11).parseInt()
-    if (inputDate.length !== 11) { 
-        return false; 
-    }
-    else if (inputDate.substring(2, 3) !== '/' || inputDate.substring(8, 9) !== ':') { 
-        return false; 
-    } 
-    else if (month > 12 || date > 31 || hour > 23 || minute > 59) {
-        return false;
-    }
-    else {return `DateTime.new(${year}, ${month}, ${date}, ${hour}, ${minute})`}
-}
-
+// pushing options that the user creates into an array
 let postedOptions = []
-
 theseOptions.forEach(option => {
     postedOptions.push(option)
 })
 
+// making the decion state var into a constant - seems to post better like this
 const postedDecision = {
     event_type: freshDecision.decisionName,
     decided: false,
     group_name: freshDecision.groupName,
-    event_time: freshDecision.eventTime,
-    decision_deadline: freshDecision.decisionDeadline
+    event_time: null,
+    decision_deadline: null
 }
 
-
+// once a new decion is subitted, this sick function fires off
 function handleFreshSubmit(e) {
+    
     e.preventDefault()
+
+    // post the new decion
     fetch("http://localhost:9292/create", {
         method: "POST",
         headers: {
@@ -74,19 +62,24 @@ function handleFreshSubmit(e) {
         })
         .then((r) => r.json())
         .then((postedDecision) => { 
-            console.log('success:', postedDecision.id)
             postOptions(postedDecision.id)
             executeJointsSequence(postedDecision.id)
-            onGetDecisionId(postedDecision.id)
-
+            console.log('success!', postedDecision)
         })
-    goToList()
+
+    // reset the form
+    document.getElementById("freshCityForm").reset();
+
 }
 
+// posts the optoins into the db
+// sep function so that it can get the new decID from the previous post request (this function is called in a .then)
 function postOptions(decisionId) {
 
+    // state is a bitch so we're using some good ol fasioned arrays
+    // need to do this sequence for EACH option provided
+    // options must be seperated by a ", "
     let cheaterOptArray = []
-    
     theseOptions.forEach(entry => {
         const option = {
             option_name: entry,
@@ -105,30 +98,21 @@ function postOptions(decisionId) {
             body: JSON.stringify(option)
             })
             .then((r) => r.json())
-            .then((option) => { 
-                console.log('success option:', option)
+            .then((r) => {
+                console.log('success!', r)
             })
-        
         }
     )
-    onCreatedOptions(cheaterOptArray)
-}
-function goToList() {
-    navigate('/')
-    console.log('Im trying to navigate')
-    onSetRerender()
-
 }
 
+// this function fills out the joins table for the new decion and what group it belongs to
+// like the last function, it is called in a .then of posting the decion so that it has access to the new decision's id
 function executeJointsSequence(decisionID) {
 
     let thingToString = {
         decision_id: decisionID,
         group_name: freshDecision.groupName
     }
-    
-    console.log('current group:', freshDecision.groupName)
-    console.log('current dec id:', decisionID)
     
     fetch("http://localhost:9292/create-joints", {
         method: "POST",
@@ -138,9 +122,12 @@ function executeJointsSequence(decisionID) {
         body: JSON.stringify(thingToString)
         })
         .then((r) => r.json())
-        .then((thingToString) => { 
-            console.log('hey yall')
+        .then((r) => {
+            console.log('success!', r)
+            // call a function in app that triggers a refetch of all decions, options, and joins
+            onReFetch()
         })
+
 }
 
 
@@ -158,18 +145,14 @@ return (
             </label>
             <br></br>
             <label>
-                <input type="text" name="eventTime" onChange={handleChange} className="input-text" placeholder="What Time is your Event?"/>
-            </label>
-            <br></br>
-            <label>
                 <input type="text" name="theseOptions" onChange={handleChangeOptions} className="input-text" placeholder="What Options are You Considering?"/>
             </label>
             <br></br>
-            <label>
-                <input type="text" name="decisionDeadLine" onChange={handleChange} className="input-text" placeholder="When must the decison be reached?"/>
-            </label>
-            <br></br>
-            <button type="submit" className="submit" />
+            <button
+                type="submit" 
+                className="submit">
+                consult the gaggle
+            </button>
         </form>
         </div>
     </div>
