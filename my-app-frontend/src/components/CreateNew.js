@@ -4,7 +4,7 @@ import React, {useState, useEffect} from "react";
 // can call the function sequence that matches up decions and optoins to whatever group the current user is
 // currelnty logged into.  cause without calling that function sequence, the new option (if it is for this group) will not
 // show up on decion list unless the user refreshes the page and sings back in!
-export default function CreateNew({ currentGroup, onDetDecs }){
+export default function CreateNew({ onReFetch }){
 
 // state for keeping track of user inputted decions
 const [freshDecision, setFreshDecision] = useState({
@@ -70,8 +70,8 @@ function handleFreshSubmit(e) {
     // reset the form
     document.getElementById("freshCityForm").reset();
 
-    // call the decion matching function in app so it updates the matching decions for the current user's session
-    onDetDecs(currentGroup)
+    // call a function in app that triggers a refetch of all decions, options, and joins
+    onReFetch()
 
 }
 

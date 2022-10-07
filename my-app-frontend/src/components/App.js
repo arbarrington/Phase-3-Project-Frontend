@@ -58,6 +58,7 @@ function App() {
             matchingDecIds.push(joint.decision_id)
         }
       })
+      // call the next function in the sequence
       nowSettingMatchingDecs(matchingDecIds)
   }
 
@@ -71,7 +72,9 @@ function App() {
               }
           })
       })
+      // update state of the matching states
       setGroupDecs(matchingDecFull)
+      // call the next function in the sequence
       nowSettingOptions(matchingDecFull)
   }
 
@@ -87,8 +90,35 @@ function App() {
               }
           })
       })
+      // update state for ALL the options for the matching decions
       setGroupOpts(matchingOptions)
   }
+
+  // function that refetches all of decions, options, and joins to reset those states AFTER a new decion is posted
+  // THIS IS SO FUCKING REDUDANT I KNOW I AM SO SORRY BUT ITS ALOMST 1 AM AND I GOTTA RUN IN THE MORNINGN SO UEAH
+  function superRedundantReFetch() {
+    // reset all decs
+    fetch('http://localhost:9292/decisions')
+    .then(d => d.json())
+    .then((d) => setAllDecs(d))
+
+    // reset all opts
+    fetch('http://localhost:9292/options')
+    .then(d => d.json())
+    .then((d) => setAllOpts(d))
+
+    // reset all joins
+    fetch('http://localhost:9292/joints')
+    .then(d => d.json())
+    .then((d) => setAllJoints(d))
+
+    // refire the mathcing sequence with the fresh data just fetched
+    handleDetDecs(currentGroup)
+  }
+
+
+
+
 
   return (
     <BrowserRouter>
@@ -109,8 +139,7 @@ function App() {
 
         <Route path="/new" element={
           <CreateNew 
-            currentGroup={currentGroup}
-            onDetDecs={(newGroup)=>handleDetDecs(newGroup)}
+            onReFetch={()=>superRedundantReFetch()}
           />
           }>
         </Route>
