@@ -27,7 +27,6 @@ export default function Login({ onCurrentGroup, onSetIsLoggedIn, isLoggedIn, onD
         }
 
     // post the user who just logged in
-    // THIS POST IS BROKEN
     fetch("http://localhost:9292/users", {
         method: "POST",
         headers: {
@@ -47,6 +46,7 @@ export default function Login({ onCurrentGroup, onSetIsLoggedIn, isLoggedIn, onD
      
   return (
     <React.Fragment>
+    <h1>GAGGLE</h1>
     {isLoggedIn ? 
     <p>Welcome {userData.username} of {userData.groupname}, it's Time to Vote!</p>
     :
