@@ -3,64 +3,61 @@ import DecisionCard from "./DecisionCard";
 import {v4 as uuid} from "uuid";
 
 
-export default function DecisionList({username, groupname, matchingDecision, createdOptions }){
+export default function DecisionList({allDecs, currentGroup, allOpts, allJoints}){
 
-    const [userFullDecision, setUserFullDecision] = useState([])
-    const [decOptions, setDecOptions] = useState([])
-    
-    const [rerender, setReRender] = useState(false)
+    // state that contains all of that groups decions
+    const [groupDecs, setGroupDecs] = useState([])
 
+    // state that contains all of that groups options (options for ALL DECS)
+    const [groupOpts, setGroupOpts] = useState([])
+
+    // states used just for proper use effect sequencing
+    const [triggerSecondUE, setTriggerSecondUE] = useState(false)
+    const [triggerThirdUE, setTriggerThirdUE] = useState(false)
+
+    // looking through all of the joints to extract decion ids that correspond to the current group name
+    let matchingDecIds =[]
     useEffect(() => {
-        let thingsToSet = []
-        fetch('http://localhost:9292/decisions')
-            .then(d => d.json())
-            .then((d) => {
-                matchingDecision.forEach((id_num) => {
-                    d.forEach((entry) => {
-                        if (entry.id == id_num) {
-                            thingsToSet.push(entry)
-                        }
-                })
-            })
-            setUserFullDecision(thingsToSet)
+        allJoints.forEach((joint) => {
+            if (joint.group_name==currentGroup && !matchingDecIds.includes(joint.decision_id)) {
+                matchingDecIds.push(joint.decision_id)
+            }
         })
-        },[rerender])
+        setTriggerSecondUE(true)
+    },[allJoints])
 
-
+    // looking through all of the decions and filling out a state of group decs where the dec id and group name math (via joins table beta)
+    let matchingDecFull = []
     useEffect(() => {
-        let thingsToSet = []
-        fetch('http://localhost:9292/options')
-            .then(d => d.json())
-            .then((d) => {
-                matchingDecision.forEach((id_num) => {
-                    d.forEach((entry) => {
-                        if (entry.id == id_num) {
-                            thingsToSet.push(entry)
-                        }
-                        // once state filled, render the cards
-                        // then reset state
-                })
+        allDecs.forEach((dec) => {
+            matchingDecIds.forEach((matchingId) => {
+                if (dec.id == matchingId && !matchingDecFull.includes(dec)) {
+                    console.log(dec)
+                    matchingDecFull.push(dec)
+                }
             })
-            setDecOptions(thingsToSet)
         })
-        },[rerender])
+        setGroupDecs(matchingDecFull)
+        setTriggerThirdUE(true)
+    },[triggerSecondUE])
+
+    // looking through all the options and extracting ones that have forein keys that match the current groups decions
+    // this will extract the options for ALL of the matching decions
+    // matching options will be passed to the render card which will filter out whcih ones to dsipaly!!
+    let matchingOptions = []
+    useEffect(() =>{
+        allOpts.forEach((opt) => {
+            groupDecs.forEach((dec) => {
+                if (opt.decision_id == dec.id) {
+                    matchingOptions.push(opt)
+                }
+            })
+        })
+        setGroupOpts(matchingOptions)
+        console.log('matching opts', matchingOptions)
+    },[triggerThirdUE])
 
 
-    console.log('decion list group name', groupname)
-    console.log("some state businet", userFullDecision)
-    // console.log('matching decion ids', matchingDecision)
-    // console.log('created options', createdOptions)
-    // console.log('options that already exist and match', decOptions)
-
-
-    // options to render only exists when some options are created in create new
-    // let optionsToRender
-
-    // createdOptions.forEach(element =>
-    //     optionsToRender.push(element)
-    // )
-
-    // console.log(optionsToRender)
 
 
 
@@ -71,12 +68,17 @@ export default function DecisionList({username, groupname, matchingDecision, cre
 
 return(
     <div>
-        {
+        {/* {
         userFullDecision.map((d) => {
            return( <DecisionCard key={uuid()} options={decOptions} decision={d}/> )
         })
         }
-        <input id="submitdecision" type="submit" value="Submit!" />
+        <input id="submitdecision" type="submit" value="Submit!" /> */}
     </div>
 )
 }
+
+
+
+    // const [userFullDecision, setUserFullDecision] = useState([])
+    // const [decOptions, setDecOptions] = useState([])

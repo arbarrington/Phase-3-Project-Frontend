@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from "react";
 
 
-export default function Login({onCurrentGroup, onSetIsLoggedIn, isLoggedIn}){
-
+export default function Login({ onCurrentGroup, onSetIsLoggedIn, isLoggedIn }){
 
     // state variable for form input data
     const [ userData, setUserData ] = useState({
@@ -29,14 +28,14 @@ export default function Login({onCurrentGroup, onSetIsLoggedIn, isLoggedIn}){
 
     // post the user who just logged in
     // THIS POST IS BROKEN
-    fetch("http://localhost:9292/users", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(postedUser)
-        })
-        .then((r) => r.json())
+    // fetch("http://localhost:9292/users", {
+    //     method: "POST",
+    //     headers: {
+    //         "Content-Type": "application/json"
+    //     },
+    //     body: JSON.stringify(postedUser)
+    //     })
+    //     .then((r) => r.json())
 
         onCurrentGroup(userData.groupname) 
         

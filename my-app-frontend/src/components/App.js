@@ -34,6 +34,8 @@ function App() {
         .then((d) => setAllJoints(d))
   },[])
 
+  //console.log(allJoints)
+
   // have the current groupname accessible by all components
   const [currentGroup, setCurrentGroup] = useState('')
 
@@ -42,18 +44,16 @@ function App() {
   // just used to render a login message now, can change to reroute if  you want
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-  // console logs for testing
-  // console.log('all decisions:',allDecs)
-  // console.log('all options',allOpts)
-  // console.log('all joints',allJoints)
-  // console.log('current group:',currentGroup)
-
+  // logic to fill out the group that has logged in decions
+  const [groupDecs, setGroupDecs] = useState([])
 
 
   return (
     <BrowserRouter>
       <NavBar/>
       <Routes>
+
+
         <Route path="/" element={
           <Login
             onCurrentGroup={(newGroup)=>setCurrentGroup(newGroup)}
@@ -63,8 +63,8 @@ function App() {
         }>
         </Route>
 
-        <Route path="/new" element=
-          {<CreateNew 
+        <Route path="/new" element={
+          <CreateNew 
             // onGetDecisionId={(newDecId)=>setDecId(newDecId)}
             // onCreatedOptions={(newOptions)=>setCreatedOptions([...createdOptions, newOptions])}
             // onSetRerender={()=>setReRender(true)}
@@ -72,10 +72,15 @@ function App() {
           }>
         </Route>
        
-        {/* <Route path="/dec-list" element={<DecisionList 
-          createdOptions={createdOptions}
-          rerender={rerender}
-        />}></Route> */}
+        <Route path="/dec-list" element={
+          <DecisionList 
+            allDecs={allDecs}
+            currentGroup={currentGroup}
+            allOpts={allOpts}
+            allJoints={allJoints}
+          />
+        }>
+        </Route>
       
       
       
