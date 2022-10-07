@@ -17,16 +17,13 @@ export default function DecisionList({groupDecs, currentGroup, groupOpts }){
         })
     }
 
-    function handlePatch(dec, opt) {
-        console.log(dec)
-        console.log(opt)
-    }
 
 // like the filtering for matching decions logic probs should live here and I tried to do that but state was making it a bitch so
 // i pushed it all up to app so that the state would be updated by the time it got here
 
 return (
     <div>
+        <h1>Time to Vote on behalf of {currentGroup}!</h1>
         {groupDecs.length > 0 ?
             <div>
                 {groupDecs.map((dec) => 
@@ -35,8 +32,7 @@ return (
                             options={groupOpts} 
                             decision={dec} 
                             currentGroup={currentGroup}
-                            handleDelete={() => handleDelete(dec)}
-                            handlePatch={(opt) => handlePatch(dec, opt)} />
+                            handleDelete={() => handleDelete(dec)}/>
                     </div>
                 )}
             </div>
