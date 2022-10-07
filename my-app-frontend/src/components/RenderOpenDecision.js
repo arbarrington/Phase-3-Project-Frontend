@@ -74,3 +74,107 @@ export default function renderOpenDecisionCard({}){
 
 
 
+
+
+
+
+    // state variable that has all of that group's decisions (matched by groupname)
+    // const [groupDecs, setGroupDecs] = useState([])
+
+    // useEffect(() => {
+    //     let decArray
+    //         fetch('http://localhost:9292/decisions')
+    //         .then(d => d.json())
+
+        
+    // },[])
+    
+
+
+    // useEffect(() => {
+    //     let thingsToSet = []
+    //     fetch('http://localhost:9292/decisions')
+    //         .then(d => d.json())
+    //         .then((d) => {
+    //             matchingDecision.forEach((id_num) => {
+    //                 d.forEach((entry) => {
+    //                     if (entry.id == id_num) {
+    //                         thingsToSet.push(entry)
+    //                     }
+    //             })
+    //         })
+    //         setUserFullDecision(thingsToSet)
+    //     })
+    // },[rerender])
+
+
+    // useEffect(() => {
+    //     let thingsToSet = []
+    //     fetch('http://localhost:9292/options')
+    //         .then(d => d.json())
+    //         .then((d) => {
+    //             matchingDecision.forEach((id_num) => {
+    //                 d.forEach((entry) => {
+    //                     if (entry.id == id_num) {
+    //                         thingsToSet.push(entry)
+    //                     }
+    //                     // once state filled, render the cards
+    //                     // then reset state
+    //             })
+    //         })
+    //         setDecOptions(thingsToSet)
+    //     })
+    // },[rerender])
+
+
+    // console.log('decion list group name', groupname)
+    // console.log("some state businet", userFullDecision)
+    // console.log('matching decion ids', matchingDecision)
+    // console.log('created options', createdOptions)
+    // console.log('options that already exist and match', decOptions)
+
+
+    // options to render only exists when some options are created in create new
+    // let optionsToRender
+
+    // createdOptions.forEach(element =>
+    //     optionsToRender.push(element)
+    // )
+
+    // console.log(optionsToRender)
+
+
+
+
+
+    // console.log('options insdie dec card',options)
+    // console.log(decision)
+    
+    // function handleVote(e) {
+    //     console.log(e.target.id)
+    //     console.log(e.target)
+    //     fetch(`http://localhost:9292/options/${3}`,{method: 'PATCH',
+    //     headers: {'Content-Type': 'application/json',},
+    //     body: JSON.stringify({num_votes: e.target.value})})
+    //     .then(res => res.json())
+    // }
+    // function displayOptions(optionArray) {
+    //     return (
+    //            optionArray.map((option) => {
+    //                 if (option.decision_id == decision.id) {
+    //                     return (
+    //                         <label>
+    //                         <input
+    //                         id={decision.id}
+    //                         type="number"
+    //                         max={optionArray.length}
+    //                         name="answer"
+    //                         className="radio"
+    //                         onChange={handleVote}
+    //                         />{option.option_name}
+    //                         </label>
+    //                     )
+    //                 }
+    //             })
+    //     )
+    // }

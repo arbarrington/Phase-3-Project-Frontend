@@ -34,8 +34,6 @@ function App() {
         .then((d) => setAllJoints(d))
   },[])
 
-  //console.log(allJoints)
-
   // have the current groupname accessible by all components
   const [currentGroup, setCurrentGroup] = useState('')
 
@@ -47,18 +45,67 @@ function App() {
   // logic to fill out the group that has logged in decions
   const [groupDecs, setGroupDecs] = useState([])
 
+  // state that contains ALL of that groups options (options for ALL DECS)
+  const [groupOpts, setGroupOpts] = useState([])
+
+
+  // this sequence of functions fires once a user logs in to update state to reflect thata groups decions and options
+  function handleIsLoggedIn(newGroup) {
+    // looking through all of the joints to extract decion ids that correspond to the current group name
+    let matchingDecIds =[]
+    allJoints.forEach((joint) => {
+        if (joint.group_name==newGroup && !matchingDecIds.includes(joint.decision_id)) {
+            matchingDecIds.push(joint.decision_id)
+        }
+      })
+      nowSettingMatchingDecs(matchingDecIds)
+  }
+
+  function nowSettingMatchingDecs(matchingDecIds) {
+  // looking through all of the decions and filling out a state of group decs where the dec id and group name math (via joins table beta)
+    let matchingDecFull = []
+      allDecs.forEach((dec) => {
+          matchingDecIds.forEach((matchingId) => {
+              if (dec.id == matchingId && !matchingDecFull.includes(dec)) {
+                  matchingDecFull.push(dec)
+              }
+          })
+      })
+      setGroupDecs(matchingDecFull)
+      nowSettingOptions(matchingDecFull)
+  }
+
+  function nowSettingOptions(matchingDecFull) {
+    // looking through all the options and extracting ones that have forein keys that match the current groups decions
+    // this will extract the options for ALL of the matching decions
+    // matching options will be passed to the render card which will filter out whcih ones to dsipaly!!
+    let matchingOptions = []
+      allOpts.forEach((opt) => {
+          matchingDecFull.forEach((dec) => {
+              if (opt.decision_id == dec.id) {
+                  matchingOptions.push(opt)
+              }
+          })
+      })
+      setGroupOpts(matchingOptions)
+  }
+
+
+
 
   return (
     <BrowserRouter>
+      
       <NavBar/>
+      
       <Routes>
-
 
         <Route path="/" element={
           <Login
             onCurrentGroup={(newGroup)=>setCurrentGroup(newGroup)}
             onSetIsLoggedIn={()=>setIsLoggedIn(true)}
             isLoggedIn={isLoggedIn}
+            onLoggedIn={(newGroup)=>handleIsLoggedIn(newGroup)}
           />
         }>
         </Route>
@@ -74,10 +121,9 @@ function App() {
        
         <Route path="/dec-list" element={
           <DecisionList 
-            allDecs={allDecs}
             currentGroup={currentGroup}
-            allOpts={allOpts}
-            allJoints={allJoints}
+            groupDecs={groupDecs}
+            groupOpts={groupOpts}
           />
         }>
         </Route>
@@ -93,34 +139,53 @@ function App() {
 export default App;
 
 
+  // function handleDecMatch(group) {
+    
+  //   let matchingDecIds =[]
+  //   let matchingDecFull = []
+
+  //   // looking through all of the joints to extract decion ids that correspond to the current group name
+  //   allJoints.forEach((joint) => {
+  //     if (joint.group_name==group && !matchingDecIds.includes(joint.decision_id)) {
+  //       matchingDecIds.push(joint.decision_id)
+  //     }
+  //   })
+
+  //   // looking through all of the decions and filling out a state of group decs where the dec id and group name math (via joins table beta)
+  //   allDecs.forEach((dec) => {
+  //     matchingDecIds.forEach((matchingId) => {
+  //         if (dec.id == matchingId && !matchingDecFull.includes(dec)) {
+  //             matchingDecFull.push(dec)
+  //         }
+  //     })
+  //   })
+  //   setGroupDecs(matchingDecFull)
+
+  //   settingOpts(groupDecs)
+
+  // }
+
+  // function settingOpts(groupDecs) {
+  //   // looking through all the options and extracting ones that have forein keys that match the current groups decions
+  //   // this will extract the options for ALL of the matching decions
+  //   // matching options will be passed to the render card which will filter out whcih ones to dsipaly!!
+  //   let matchingOptions = []
+  //   allOpts.forEach((opt) => {
+  //     groupDecs.forEach((dec) => {
+  //       console.log(dec)
+  //         if (opt.decision_id == dec.id) {
+  //           console.log('does this logic even work')
+  //             matchingOptions.push(opt)
+  //         }
+  //     })
+  //   })
+  //   setGroupOpts(matchingOptions)
 
 
+  // }
 
-  // // most recent user
-  // const [currentUser, setCurrentUser ] = useState('')
 
-  // // state for determing if logged in or not
-  // const [hasLoggedIn, setHasLoggedIn] = useState(false)
-
-  // // state for getting group name -> used to determine which decisions to render
-  // const [currentGroupName, setCurrentGroupName] = useState('')
-
-  // // state for a new decision id that gets created
-  // const [decId, setDecId] = useState()
-
-  // // cheat code to pass options around
-  // const [createdOptions, setCreatedOptions] = useState([])
-
-    // const [allJoints, setallJoints] = useState([{
-  //   decision_id: null,
-  //   group_name: ''
-
-  // {<Home 
-  //   // onCurrentUser={(newUser)=>setCurrentUser(newUser)}
-  //   // onCurrentGroupName={(newGroupName)=>setCurrentGroupName(newGroupName)}
-  //   // onHasLoggedIn={() => setHasLoggedIn(true)}
-  //   // hasLoggedIn={hasLoggedIn}
-  //   // username={currentUser.username}
-  //   // groupname={currentUser.groupname}
-  //   />
-  // }>
+    // // states used just for proper use effect sequencing
+    // const [triggerSecondUE, setTriggerSecondUE] = useState(false)
+    // const [triggerThirdUE, setTriggerThirdUE] = useState(false)
+    // const [triggerRender, setTriggerRender] = useState(false)

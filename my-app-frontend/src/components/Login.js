@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 
 
-export default function Login({ onCurrentGroup, onSetIsLoggedIn, isLoggedIn }){
+export default function Login({ onCurrentGroup, onSetIsLoggedIn, isLoggedIn, onLoggedIn }){
 
     // state variable for form input data
     const [ userData, setUserData ] = useState({
@@ -37,7 +37,8 @@ export default function Login({ onCurrentGroup, onSetIsLoggedIn, isLoggedIn }){
     //     })
     //     .then((r) => r.json())
 
-        onCurrentGroup(userData.groupname) 
+        onCurrentGroup(userData.groupname)
+        onLoggedIn(userData.groupname)
         
         onSetIsLoggedIn()
 
@@ -47,7 +48,7 @@ export default function Login({ onCurrentGroup, onSetIsLoggedIn, isLoggedIn }){
   return (
     <React.Fragment>
     {isLoggedIn ? 
-    <p>Time to Vote!</p>
+    <p>Welcome {userData.username} of {userData.groupname}, it's Time to Vote!</p>
     :
     <div className="login-full">
       <form onSubmit={handleSubmit} id="login-form">
@@ -72,42 +73,3 @@ export default function Login({ onCurrentGroup, onSetIsLoggedIn, isLoggedIn }){
     </React.Fragment>
   );
 }
-    
-
-
-
-    // useEffect(() => {
-    //     fetch('http://localhost:9292/decisions')
-    //         .then(d => d.json())
-    //         .then((d) => {
-    //             setAllDecisions(d)
-    //         })
-    // },[])
-
-    // useEffect(() => {
-    //     fetch('http://localhost:9292/joints')
-    //         .then(d => d.json())
-    //         .then((d) => {
-    //             setJointsData(d)
-    //             console.log(d)
-    //     })
-    // },[])
-
-            // execute extract decisions sequence
-        // extractDecisionSequence(userData.groupname)   
-
-       // make sure to change num to userID
-//     function extractDecisionSequence(postedGroupName) {
-//         let idArray = []
-//         console.log(postedGroupName)
-//         jointsData.filter(row => row.group_name==postedGroupName).forEach((row) => {
-//             allDecisions.forEach((entry) => {
-//                 if (row.decision_id == entry.id && !idArray.includes(entry.id)) {
-//                     console.log(entry.id)
-//                     idArray.push(entry.id)
-//                 }
-//             })
-//         })
-//         onMatchingDecisions(idArray)
-//         console.log(idArray)
-//     }
