@@ -19,6 +19,8 @@ export default function DecisionCard({options, decision, currentGroup}) {
     // each optoin gets rendered as a button but I was too lazy to add any functinality to the buttons!
     // but it might be easy to add the voting logic if each option is just a button wiht like a hanndle onClick fucntion to patch/post
 
+    // also maybe a terenary to change the rendering if the decided value of decion is true
+
     return (
         <div className="decisionCard">
             {thisDecOpts.length > 0 ?

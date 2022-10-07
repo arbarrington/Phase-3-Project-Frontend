@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
-import {useNavigate} from "react-router-dom";
+
+
 export default function CreateNew({onGetDecisionId, onCreatedOptions, onSetRerender }){
 
 // state for keeping track of user inputted decions
@@ -11,7 +12,6 @@ const [freshDecision, setFreshDecision] = useState({
     eventTime: '',
     decisionDeadline: ''
 })
-const navigate = useNavigate()
 
 // state for keeping track of user inputted options
 const [theseOptions, setTheseOptions] = useState([])
@@ -29,27 +29,8 @@ function handleChangeOptions(e) {
     .split(','));
 }
 
-// MM/DD HH:MM
-function dateFormatValidation (inputDate) {
-    let year = new Date().getFullYear()
-    let month = inputDate.substring(0,2).parseInt()
-    let date = inputDate.substring(3,5).parseInt()
-    let hour = inputDate.substring(6,8).parseInt()
-    let minute = inputDate.substring(9,11).parseInt()
-    if (inputDate.length !== 11) { 
-        return false; 
-    }
-    else if (inputDate.substring(2, 3) !== '/' || inputDate.substring(8, 9) !== ':') { 
-        return false; 
-    } 
-    else if (month > 12 || date > 31 || hour > 23 || minute > 59) {
-        return false;
-    }
-    else {return `DateTime.new(${year}, ${month}, ${date}, ${hour}, ${minute})`}
-}
 
 let postedOptions = []
-
 theseOptions.forEach(option => {
     postedOptions.push(option)
 })
@@ -58,12 +39,13 @@ const postedDecision = {
     event_type: freshDecision.decisionName,
     decided: false,
     group_name: freshDecision.groupName,
-    event_time: freshDecision.eventTime,
-    decision_deadline: freshDecision.decisionDeadline
+    event_time: null,
+    decision_deadline: null
 }
 
 
 function handleFreshSubmit(e) {
+    
     e.preventDefault()
     fetch("http://localhost:9292/create", {
         method: "POST",
@@ -80,7 +62,8 @@ function handleFreshSubmit(e) {
             onGetDecisionId(postedDecision.id)
 
         })
-    //goToList()
+
+    document.getElementById("freshCityForm").reset();
 }
 
 function postOptions(decisionId) {
@@ -113,12 +96,7 @@ function postOptions(decisionId) {
     )
     onCreatedOptions(cheaterOptArray)
 }
-// function goToList() {
-//     navigate('/')
-//     console.log('Im trying to navigate')
-//     onSetRerender()
 
-// }
 
 function executeJointsSequence(decisionID) {
 
@@ -139,7 +117,7 @@ function executeJointsSequence(decisionID) {
         })
         .then((r) => r.json())
         .then((thingToString) => { 
-            console.log('hey yall')
+            //console.log('hey yall')
         })
 }
 
@@ -158,18 +136,14 @@ return (
             </label>
             <br></br>
             <label>
-                <input type="text" name="eventTime" onChange={handleChange} className="input-text" placeholder="What Time is your Event?"/>
-            </label>
-            <br></br>
-            <label>
                 <input type="text" name="theseOptions" onChange={handleChangeOptions} className="input-text" placeholder="What Options are You Considering?"/>
             </label>
             <br></br>
-            <label>
-                <input type="text" name="decisionDeadLine" onChange={handleChange} className="input-text" placeholder="When must the decison be reached?"/>
-            </label>
-            <br></br>
-            <button type="submit" className="submit" />
+            <button
+                type="submit" 
+                className="submit">
+                consult the gaggle
+            </button>
         </form>
         </div>
     </div>
